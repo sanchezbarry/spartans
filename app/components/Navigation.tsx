@@ -1,13 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { Menu, X, Shield } from 'lucide-react';
+import { Menu, X, Shield, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTheme } from '../providers/ThemeContext';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isDark, toggleTheme } = useTheme();
 
   const navItems = [
     { label: 'Articles', href: '#story' },
@@ -18,7 +20,7 @@ export function Navigation() {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
+    <nav className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
                  
         <div className="flex items-center justify-between h-20">
@@ -37,9 +39,9 @@ export function Navigation() {
               <div className="absolute inset-0 bg-primary/20 blur-xl"></div>
             </div>
             <div>
-              <div className="tracking-[0.3em] text-primary uppercase">Spartans</div>
+              <div className="tracking-[0.3em] text-primary uppercase"><h6>Spartans</h6></div>
               
-              <div className="text-xs text-muted-foreground tracking-wider">Advisors</div>
+              <div className=" text-muted-foreground tracking-wider"><h6>Advisors</h6></div>
             </div>
           </div>
             </Link>
@@ -57,6 +59,13 @@ export function Navigation() {
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="p-2 text-muted-foreground hover:text-primary transition-colors"
+              aria-label="Toggle theme"
+            >
+              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
             <button className="px-6 py-2.5 text-sm text-foreground hover:text-primary transition-colors">
               Client Login
             </button>
@@ -94,6 +103,13 @@ export function Navigation() {
                 </a>
               ))}
               <div className="pt-4 space-y-3 border-t border-border">
+                <button
+                  onClick={toggleTheme}
+                  className="w-full flex items-center justify-center gap-2 px-6 py-2.5 text-foreground hover:text-primary transition-colors"
+                >
+                  {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+                  {isDark ? 'Light Mode' : 'Dark Mode'}
+                </button>
                 <button className="w-full px-6 py-2.5 text-foreground hover:text-primary transition-colors text-center">
                   Client Login
                 </button>
