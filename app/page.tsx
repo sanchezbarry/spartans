@@ -1,12 +1,13 @@
 
 import Image from "next/image";
-import { Hero } from "./components/Hero";
-import { Navigation } from "./components/Navigation";
-import { ShieldOverlay } from "./components/ShieldOverlay";
-import { Footer } from "./components/Footer";
-import { Story } from "./components/Story";
-import { Framework } from "./components/Framework";
-import { Testimonials } from "./components/Testimonials";
+import { Hero } from "../components/Hero";
+import { Navigation } from "../components/Navigation";
+import { ShieldOverlay } from "../components/ShieldOverlay";
+import { Footer } from "../components/Footer";
+import { Story } from "../components/Story";
+import { Framework } from "../components/Framework";
+import ContactUsSection from "../components/ContactUsSection";
+import { Testimonials } from "../components/Testimonials";
 
 export default function Home() {
   return (
@@ -19,6 +20,7 @@ export default function Home() {
         <Story />
         <Framework />
         <Testimonials />
+        <ContactUsSection />
       </main>
       <Footer />
     </div>

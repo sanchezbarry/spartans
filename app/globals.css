@@ -2,6 +2,12 @@
 
 @import "tailwindcss";
 
+@import "tw-animate-css";
+
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
 * {
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -15,85 +21,85 @@ h1, h2, h3, h4, h5, h6,
 :root {
   --font-size: 16px;
   /* Light mode palette */
-  --background: #FFFFFF;
-  --foreground: #1A1A1A;
-  --card: #F5F5F5;
-  --card-foreground: #1A1A1A;
-  --popover: #F0F0F0;
-  --popover-foreground: #1A1A1A;
-  --primary: #C8A96A;
-  --primary-foreground: #FFFFFF;
-  --secondary: #F5F5F5;
-  --secondary-foreground: #1A1A1A;
-  --muted: #E0E0E0;
-  --muted-foreground: #666666;
-  --accent: #8B1D2A;
-  --accent-foreground: #FFFFFF;
-  --destructive: #C0392B;
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.147 0.004 49.25);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.147 0.004 49.25);
+  --primary: oklch(0.216 0.006 56.043);
+  --primary-foreground: oklch(0.985 0.001 106.423);
+  --secondary: oklch(0.97 0.001 106.424);
+  --secondary-foreground: oklch(0.216 0.006 56.043);
+  --muted: oklch(0.97 0.001 106.424);
+  --muted-foreground: oklch(0.553 0.013 58.071);
+  --accent: oklch(0.216 0.006 56.043);
+  --accent-foreground: oklch(0.985 0.001 106.423);
+  --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: #ffffff;
-  --border: rgba(200, 169, 106, 0.2);
+  --border: oklch(0.923 0.003 48.717);
   --border-warm: rgba(200, 169, 106, 0.3);
-  --input: transparent;
+  --input: oklch(0.923 0.003 48.717);
   --input-background: #F5F5F5;
   --switch-background: #E0E0E0;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #C8A96A;
-  --chart-1: #C8A96A;
-  --chart-2: #8B1D2A;
-  --chart-3: #5C7A8E;
-  --chart-4: #6B8A7A;
-  --chart-5: #9D6B50;
-  --radius: 0.375rem;
-  --sidebar: #FFFFFF;
-  --sidebar-foreground: #1A1A1A;
-  --sidebar-primary: #C8A96A;
-  --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #F5F5F5;
-  --sidebar-accent-foreground: #1A1A1A;
-  --sidebar-border: rgba(200, 169, 106, 0.1);
-  --sidebar-ring: #C8A96A;
+  --ring: oklch(0.709 0.01 56.259);
+  --chart-1: oklch(0.879 0.169 91.605);
+  --chart-2: oklch(0.769 0.188 70.08);
+  --chart-3: oklch(0.666 0.179 58.318);
+  --chart-4: oklch(0.555 0.163 48.998);
+  --chart-5: oklch(0.473 0.137 46.201);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0.001 106.423);
+  --sidebar-foreground: oklch(0.147 0.004 49.25);
+  --sidebar-primary: oklch(0.216 0.006 56.043);
+  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-accent: oklch(0.97 0.001 106.424);
+  --sidebar-accent-foreground: oklch(0.216 0.006 56.043);
+  --sidebar-border: oklch(0.923 0.003 48.717);
+  --sidebar-ring: oklch(0.709 0.01 56.259);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.147 0.004 49.25);
 }
 
 .dark {
-  --background: #0C0A08;
-  --foreground: #EDE8DF;
-  --card: #141210;
-  --card-foreground: #EDE8DF;
-  --popover: #1C1916;
-  --popover-foreground: #EDE8DF;
-  --primary: #C8A96A;
-  --primary-foreground: #0C0A08;
-  --secondary: #1C1916;
-  --secondary-foreground: #EDE8DF;
-  --muted: #201D1A;
-  --muted-foreground: #9A948C;
-  --accent: #8B1D2A;
-  --accent-foreground: #EDE8DF;
-  --destructive: #C0392B;
+  --background: oklch(0.147 0.004 49.25);
+  --foreground: oklch(0.985 0.001 106.423);
+  --card: oklch(0.216 0.006 56.043);
+  --card-foreground: oklch(0.985 0.001 106.423);
+  --popover: oklch(0.216 0.006 56.043);
+  --popover-foreground: oklch(0.985 0.001 106.423);
+  --primary: oklch(0.923 0.003 48.717);
+  --primary-foreground: oklch(0.216 0.006 56.043);
+  --secondary: oklch(0.268 0.007 34.298);
+  --secondary-foreground: oklch(0.985 0.001 106.423);
+  --muted: oklch(0.268 0.007 34.298);
+  --muted-foreground: oklch(0.709 0.01 56.259);
+  --accent: oklch(0.923 0.003 48.717);
+  --accent-foreground: oklch(0.216 0.006 56.043);
+  --destructive: oklch(0.704 0.191 22.216);
   --destructive-foreground: #ffffff;
-  --border: rgba(200, 169, 106, 0.12);
+  --border: oklch(1 0 0 / 10%);
   --border-warm: rgba(200, 169, 106, 0.25);
-  --input: transparent;
+  --input: oklch(1 0 0 / 15%);
   --input-background: #1C1916;
   --switch-background: #2A2520;
   --font-weight-medium: 500;
   --font-weight-normal: 400;
-  --ring: #C8A96A;
-  --chart-1: #C8A96A;
-  --chart-2: #8B1D2A;
-  --chart-3: #5C7A8E;
-  --chart-4: #6B8A7A;
-  --chart-5: #9D6B50;
+  --ring: oklch(0.553 0.013 58.071);
+  --chart-1: oklch(0.879 0.169 91.605);
+  --chart-2: oklch(0.769 0.188 70.08);
+  --chart-3: oklch(0.666 0.179 58.318);
+  --chart-4: oklch(0.555 0.163 48.998);
+  --chart-5: oklch(0.473 0.137 46.201);
   --radius: 0.375rem;
-  --sidebar: #0F0D0B;
-  --sidebar-foreground: #EDE8DF;
-  --sidebar-primary: #C8A96A;
-  --sidebar-primary-foreground: #0C0A08;
-  --sidebar-accent: #1C1916;
-  --sidebar-accent-foreground: #EDE8DF;
-  --sidebar-border: rgba(200, 169, 106, 0.1);
-  --sidebar-ring: #C8A96A;
+  --sidebar: oklch(0.216 0.006 56.043);
+  --sidebar-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-accent: oklch(0.268 0.007 34.298);
+  --sidebar-accent-foreground: oklch(0.985 0.001 106.423);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.553 0.013 58.071);
 }
 
 @theme inline {
@@ -135,6 +141,11 @@ h1, h2, h3, h4, h5, h6,
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 @layer base {
@@ -149,6 +160,7 @@ h1, h2, h3, h4, h5, h6,
   html {
     font-size: var(--font-size);
     scroll-behavior: smooth;
+    @apply font-sans;
   }
 
   h1 {
@@ -198,10 +210,4 @@ h1, h2, h3, h4, h5, h6,
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: rgba(200,169,106,0.3); border-radius: 2px; }
   ::-webkit-scrollbar-thumb:hover { background: rgba(200,169,106,0.6); }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

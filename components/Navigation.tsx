@@ -5,7 +5,7 @@ import { Menu, X, Shield, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useTheme } from '../providers/ThemeContext';
+import { useTheme } from '../app/providers/ThemeContext';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
