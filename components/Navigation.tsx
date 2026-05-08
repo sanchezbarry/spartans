@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Menu, X, Shield, Sun, Moon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -9,7 +9,13 @@ import { useTheme } from '../app/providers/ThemeContext';
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { isDark, toggleTheme } = useTheme();
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
 
   const navItems = [
     { label: 'Articles', href: '#story' },
@@ -32,7 +38,8 @@ export function Navigation() {
               src="/logo.png"
               alt="Spartans Logo"
               width={50}
-                height={50}
+              height={50}
+              loading="eager"
               />
       
               {/* <Shield className="w-10 h-10 text-primary" strokeWidth={1.5} /> */}
@@ -59,13 +66,15 @@ export function Navigation() {
           </div>
 
           <div className="hidden lg:flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-muted-foreground hover:text-primary transition-colors"
-              aria-label="Toggle theme"
-            >
-              {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
+            {mounted && (
+              <button
+                onClick={toggleTheme}
+                className="p-2 text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Toggle theme"
+              >
+                {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+              </button>
+            )}
             <button className="px-6 py-2.5 text-sm text-foreground hover:text-primary transition-colors">
               Client Login
             </button>

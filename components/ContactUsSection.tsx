@@ -1,5 +1,5 @@
 import { GalleryVerticalEnd } from "lucide-react"
-
+import Image from "next/image"
 import { ContactUs } from "@/components/ContactUs"
 
 export default function ContactUsSection() {
@@ -21,8 +21,10 @@ export default function ContactUsSection() {
         </div>
       </div>
       <div className="relative hidden bg-muted lg:block">
-        <img
+        <Image
           src="/placeholder.svg"
+          width={500}
+          height={500}
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
