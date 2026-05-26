@@ -5,21 +5,21 @@ import Image from 'next/image';
 export function Footer() {
   const footerLinks = {
     company: [
-      { label: 'Our Story', href: '#story' },
-      { label: 'Team', href: '#advisors' },
-      { label: 'Careers', href: '#careers' },
-      { label: 'Events', href: '#events' },
+      { label: 'Our Story', href: '/#story' },
+      { label: 'Our Partners', href: '/partners' },
+      { label: 'Careers', href: '/careers' },
+      { label: 'Events', href: '/events' },
     ],
     services: [
-      { label: 'Wealth Management', href: '#framework' },
-      { label: 'Retirement Planning', href: '#framework' },
-      { label: 'Tax Strategies', href: '#framework' },
-      { label: 'Estate Planning', href: '#framework' },
+      { label: 'Wealth Management', href: '/#framework' },
+      { label: 'Retirement Planning', href: '/#framework' },
+      { label: 'Tax Strategies', href: '/#framework' },
+      { label: 'iSPARTANS App', href: '/ispartans' },
     ],
     resources: [
-      { label: 'Articles & Insights', href: '#articles' },
-      { label: 'Market Commentary', href: '#articles' },
-      { label: 'Planning Tools', href: '#' },
+      { label: 'Articles & Insights', href: '/articles' },
+      { label: 'Market Commentary', href: '/articles' },
+      { label: 'iSPARTANS Rewards', href: '/ispartans' },
       { label: 'FAQ', href: '#' },
     ],
     legal: [

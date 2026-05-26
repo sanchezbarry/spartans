@@ -37,7 +37,7 @@ const phases = [
     numeral: '04',
     icon: Users,
     title: 'Ongoing Partnership',
-    description: 'Your journey doesn\'t end at implementation. We adapt, refine, and evolve as your life does.',
+    description: "Your journey doesn't end at implementation. We adapt, refine, and evolve as your life does.",
     features: ['Quarterly strategy reviews', 'Annual planning sessions', 'Life event support', '24/7 client access'],
     color: 'from-accent/5 to-transparent',
   },
@@ -48,8 +48,21 @@ export function Framework() {
   const phase = phases[active];
 
   return (
-    <section id="framework" className="relative py-28 lg:py-36 bg-background">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(200,169,106,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,169,106,0.03)_1px,transparent_1px)] bg-[size:5rem_5rem]"></div>
+    <section id="framework" className="relative py-28 lg:py-36 bg-background overflow-hidden">
+      {/* Animated mesh background */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div
+          className="absolute rounded-full animate-mesh-b"
+          style={{
+            width: '50vw',
+            height: '50vw',
+            top: '10%',
+            right: '-15%',
+            background: 'radial-gradient(circle, rgba(139,29,42,0.07) 0%, transparent 65%)',
+          }}
+        />
+      </div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(200,169,106,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,169,106,0.03)_1px,transparent_1px)] bg-size-[5rem_5rem] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
@@ -60,7 +73,7 @@ export function Framework() {
           className="mb-16"
         >
           <div className="flex items-center gap-3 mb-5">
-            <div className="w-6 h-px bg-accent"></div>
+            <div className="w-6 h-px bg-accent" />
             <span className="text-xs text-accent tracking-[0.3em] uppercase font-medium">The Spartan Framework</span>
           </div>
           <h2 className="cinzel text-4xl md:text-5xl lg:text-6xl max-w-2xl leading-tight">
@@ -82,23 +95,29 @@ export function Framework() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 onClick={() => setActive(i)}
-                className={`w-full text-left p-5 rounded-sm border transition-all duration-300 ${
+                className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 ${
                   active === i
-                    ? 'bg-card border-primary/50 shadow-lg shadow-primary/10'
-                    : 'bg-card/30 border-border hover:border-border hover:bg-card/60'
+                    ? 'bg-card border-primary/50 shadow-xl shadow-primary/10'
+                    : 'bg-card/40 border-border hover:border-border hover:bg-card/70'
                 }`}
               >
                 <div className="flex items-center gap-4">
-                  <span className={`cinzel text-3xl font-light transition-colors ${active === i ? 'text-primary' : 'text-muted-foreground/30'}`}>
+                  <span
+                    className={`cinzel text-3xl font-light transition-colors ${
+                      active === i ? 'text-primary' : 'text-muted-foreground/30'
+                    }`}
+                  >
                     {p.numeral}
                   </span>
                   <div>
-                    <div className={`text-sm font-medium tracking-wide transition-colors ${active === i ? 'text-foreground' : 'text-muted-foreground'}`}>
+                    <div
+                      className={`text-sm font-medium tracking-wide transition-colors ${
+                        active === i ? 'text-foreground' : 'text-muted-foreground'
+                      }`}
+                    >
                       {p.title}
                     </div>
-                    {active === i && (
-                      <div className="w-8 h-px bg-primary mt-1.5"></div>
-                    )}
+                    {active === i && <div className="w-8 h-px bg-primary mt-1.5" />}
                   </div>
                 </div>
               </motion.button>
@@ -112,14 +131,16 @@ export function Framework() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4 }}
-              className={`p-10 lg:p-14 rounded-sm bg-gradient-to-br ${phase.color} border border-border`}
+              className={`p-10 lg:p-14 rounded-2xl bg-linear-to-br ${phase.color} border border-border`}
             >
               <div className="flex items-center gap-5 mb-8">
-                <div className="w-14 h-14 rounded-sm bg-card border border-primary/30 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl bg-card border border-primary/30 flex items-center justify-center">
                   <phase.icon className="w-7 h-7 text-primary" />
                 </div>
                 <div>
-                  <div className="cinzel text-xs text-primary tracking-[0.25em] mb-1">Phase {phase.number}</div>
+                  <div className="cinzel text-xs text-primary tracking-[0.25em] mb-1">
+                    Phase {phase.number}
+                  </div>
                   <h3 className="cinzel text-2xl lg:text-3xl text-foreground">{phase.title}</h3>
                 </div>
               </div>
@@ -131,7 +152,7 @@ export function Framework() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {phase.features.map((feature) => (
                   <div key={feature} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-sm bg-primary/10 border border-primary/25 flex items-center justify-center flex-shrink-0">
+                    <div className="w-5 h-5 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center shrink-0">
                       <Check className="w-3 h-3 text-primary" />
                     </div>
                     <span className="text-sm text-muted-foreground">{feature}</span>
@@ -144,13 +165,13 @@ export function Framework() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="mt-8 flex items-center justify-between p-6 rounded-sm bg-card border border-border"
+              className="mt-6 flex items-center justify-between p-6 rounded-2xl bg-card border border-border"
             >
               <div>
                 <div className="cinzel text-foreground text-sm mb-1">Ready to begin?</div>
                 <div className="text-xs text-muted-foreground">Most clients see clarity within the first 90 days.</div>
               </div>
-              <button className="px-6 py-3 bg-primary text-primary-foreground text-sm tracking-wide rounded-sm hover:bg-primary/85 transition-all hover:shadow-lg hover:shadow-primary/25 whitespace-nowrap">
+              <button className="px-6 py-3 bg-primary text-primary-foreground text-sm tracking-wide rounded hover:bg-primary/85 transition-all hover:shadow-lg hover:shadow-primary/25 whitespace-nowrap">
                 Start Your Plan
               </button>
             </motion.div>

@@ -18,11 +18,11 @@ export function Navigation() {
   }, []);
 
   const navItems = [
-    { label: 'Articles', href: '#story' },
-    { label: 'Our Partners', href: '#framework' },
-    { label: 'Events', href: '#advisors' },
-    { label: 'Careers', href: '#articles' },
-    { label: 'iSPARTANS', href: '#events' },
+    { label: 'Articles', href: '/articles' },
+    { label: 'Our Partners', href: '/partners' },
+    { label: 'Events', href: '/events' },
+    { label: 'Careers', href: '/careers' },
+    { label: 'iSPARTANS', href: '/ispartans' },
   ];
 
   return (
@@ -54,14 +54,14 @@ export function Navigation() {
             </Link>
           <div className="hidden lg:flex items-center gap-8">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 className="text-sm text-muted-foreground hover:text-primary transition-colors relative group"
               >
                 {item.label}
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary group-hover:w-full transition-all duration-300"></span>
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -102,14 +102,14 @@ export function Navigation() {
           >
             <div className="px-6 py-4 space-y-4">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
                   className="block text-muted-foreground hover:text-primary transition-colors"
                 >
                   {item.label}
-                </a>
+                </Link>
               ))}
               <div className="pt-4 space-y-3 border-t border-border">
                 <button

@@ -1,0 +1,78 @@
+import { createClient } from '@sanity/client'
+
+export const sanityClient = createClient({
+  projectId: 'wcccrefo',
+  dataset: 'production',
+  apiVersion: '2025-05-14',
+  useCdn: true,
+})
+
+export interface SanityPost {
+  _id: string
+  title: string
+  slug: string
+  category: 'finance' | 'lifestyle' | 'current-affairs' | 'insurance'
+  excerpt: string
+  publishedAt: string
+  featured?: boolean
+  coverImage?: {
+    url: string
+    alt: string
+  }
+}
+
+export interface SanityPostFull extends SanityPost {
+  body: PortableTextBlock[]
+  seoTitle?: string
+  seoDescription?: string
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type PortableTextBlock = any
+
+export const POSTS_QUERY = `
+  *[_type == "post"] | order(publishedAt desc) {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    excerpt,
+    publishedAt,
+    featured,
+    coverImage {
+      "url": asset->url,
+      alt
+    }
+  }
+`
+
+export const POST_BY_SLUG_QUERY = `
+  *[_type == "post" && slug.current == $slug][0] {
+    _id,
+    title,
+    "slug": slug.current,
+    category,
+    excerpt,
+    publishedAt,
+    featured,
+    coverImage {
+      "url": asset->url,
+      alt
+    },
+    body[] {
+      ...,
+      _type == "image" => {
+        ...,
+        "url": asset->url,
+        alt,
+        caption
+      }
+    },
+    seoTitle,
+    seoDescription
+  }
+`
+
+export const ALL_SLUGS_QUERY = `
+  *[_type == "post"] { "slug": slug.current }
+`
