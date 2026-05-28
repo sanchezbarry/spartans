@@ -38,10 +38,17 @@ export function ShieldOverlay() {
       >
         <div className="relative w-full h-full">
           <Image
+            src="/shield-mobile.png"
+            alt="Spartans Advisors"
+            fill
+            className="object-cover object-center md:hidden"
+            priority
+          />
+          <Image
             src="/shield.png"
             alt="Spartans Advisors"
             fill
-            className="object-cover object-center"
+            className="object-cover object-center hidden md:block"
             priority
           />
         </div>
@@ -56,11 +63,19 @@ export function ShieldOverlay() {
       >
         <div className="relative w-full h-full">
           <Image
+            src="/shield-mobile.png"
+            alt=""
+            aria-hidden
+            fill
+            className="object-cover object-center md:hidden"
+            priority
+          />
+          <Image
             src="/shield.png"
             alt=""
             aria-hidden
             fill
-            className="object-cover object-center"
+            className="object-cover object-center hidden md:block"
             priority
           />
         </div>

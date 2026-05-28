@@ -76,3 +76,32 @@ export const POST_BY_SLUG_QUERY = `
 export const ALL_SLUGS_QUERY = `
   *[_type == "post"] { "slug": slug.current }
 `
+
+// ── Testimonials ──────────────────────────────────────────────────────────────
+
+export interface SanityTestimonial {
+  _id: string
+  advisorSlug: string
+  clientName: string
+  clientTitle?: string
+  heading?: string
+  quote: string
+  rating?: number
+  photo?: { url: string }
+  submittedAt: string
+}
+
+export const TESTIMONIALS_BY_ADVISOR_QUERY = `
+  *[_type == "testimonial" && advisorSlug == $advisorSlug && approved == true]
+  | order(submittedAt desc) {
+    _id,
+    advisorSlug,
+    clientName,
+    clientTitle,
+    heading,
+    quote,
+    rating,
+    photo { "url": asset->url },
+    submittedAt
+  }
+`
