@@ -115,10 +115,10 @@ export function Hero() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-start gap-4 mb-14">
-                <button className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-primary text-primary-foreground text-sm tracking-wide rounded hover:bg-primary/85 transition-all hover:shadow-xl hover:shadow-primary/25">
+                <a href="#contact" className="group inline-flex items-center gap-2.5 px-8 py-3.5 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-xl hover:shadow-cta/25">
                   Begin Your Journey
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </a>
                 <button className="inline-flex items-center gap-2.5 px-8 py-3.5 border border-border text-sm tracking-wide text-foreground rounded hover:border-primary/40 hover:text-primary transition-all">
                   Explore Our Framework
                 </button>

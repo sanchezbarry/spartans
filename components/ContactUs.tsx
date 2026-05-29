@@ -63,7 +63,7 @@ export function ContactUs({
           <Input
             id="name"
             type="text"
-            placeholder="John Doe"
+            placeholder="John Tan"
             required
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -89,7 +89,7 @@ export function ContactUs({
           <Input
             id="phone"
             type="tel"
-            placeholder="+1 234 567 8900"
+            placeholder="+65 1234 5678"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
           />
@@ -118,7 +118,7 @@ export function ContactUs({
         )}
 
         <Field>
-          <Button type="submit" disabled={status === 'loading'}>
+          <Button type="submit" disabled={status === 'loading'} className="rounded-lg">
             {status === 'loading' ? 'Sending…' : 'Send Message'}
           </Button>
         </Field>

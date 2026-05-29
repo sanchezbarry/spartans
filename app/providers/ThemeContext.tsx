@@ -23,8 +23,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [isDark, setIsDark] = useState(() => {
     if (typeof window === 'undefined') return false;
     const savedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    return savedTheme ? savedTheme === 'dark' : prefersDark;
+    return savedTheme === 'dark';
   });
 
   useEffect(() => {

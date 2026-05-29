@@ -136,7 +136,7 @@ export function Footer() {
             <div>
               <p className="text-sm text-muted-foreground mb-1">Call Us</p>
               <a href="tel:+18005551234" className="text-foreground hover:text-primary transition-colors">
-                +1 (800) 555-1234
+                +65 1234 5678
               </a>
             </div>
           </div>
@@ -160,8 +160,8 @@ export function Footer() {
             <div>
               <p className="text-sm text-muted-foreground mb-1">Headquarters</p>
               <p className="text-foreground">
-                300 Park Avenue, 25th Floor<br />
-                New York, NY 10022
+                3 Tampines Grande, Level 1<br />
+                Singapore 528799
               </p>
             </div>
           </div>

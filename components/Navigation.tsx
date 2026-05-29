@@ -75,12 +75,12 @@ export function Navigation() {
                 {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
             )}
-            <button className="px-6 py-2.5 text-sm text-foreground hover:text-primary transition-colors">
+            {/* <button className="px-6 py-2.5 text-sm text-foreground hover:text-primary transition-colors">
               Client Login
-            </button>
-            <button className="px-6 py-2.5 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-all hover:shadow-lg hover:shadow-primary/20">
+            </button> */}
+            <a href="#contact" className="px-6 py-2.5 bg-cta text-cta-foreground rounded-lg hover:bg-cta/90 transition-all hover:shadow-lg hover:shadow-cta/20">
               Schedule Call
-            </button>
+            </a>
           </div>
 
           <button
@@ -122,7 +122,7 @@ export function Navigation() {
                 <button className="w-full px-6 py-2.5 text-foreground hover:text-primary transition-colors text-center">
                   Client Login
                 </button>
-                <button className="w-full px-6 py-2.5 bg-primary text-primary-foreground rounded-lg">
+                <button className="w-full px-6 py-2.5 bg-cta text-cta-foreground rounded-lg">
                   Schedule Call
                 </button>
               </div>

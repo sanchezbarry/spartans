@@ -131,7 +131,7 @@ export default function EventsPage() {
               <div className="flex flex-wrap gap-4">
                 <a
                   href="#upcoming"
-                  className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-primary text-primary-foreground text-sm tracking-wide rounded hover:bg-primary/85 transition-all hover:shadow-xl hover:shadow-primary/25"
+                  className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-xl hover:shadow-cta/25"
                 >
                   See Upcoming Events
                   <ArrowRight className="w-4 h-4" />

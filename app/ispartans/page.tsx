@@ -228,8 +228,8 @@ export default function ISpartansPage() {
 
                       {/* Redeem button */}
                       <div className="mt-auto pt-4">
-                        <div className="w-full py-2.5 rounded-xl bg-primary text-center">
-                          <span className="text-xs text-primary-foreground font-medium">Redeem Rewards</span>
+                        <div className="w-full py-2.5 rounded-xl bg-cta text-center">
+                          <span className="text-xs text-cta-foreground font-medium">Redeem Rewards</span>
                         </div>
                       </div>
                     </div>
@@ -455,7 +455,7 @@ export default function ISpartansPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="/events"
-                  className="inline-flex items-center gap-2.5 px-8 py-4 bg-primary text-primary-foreground text-sm tracking-wide rounded hover:bg-primary/85 transition-all hover:shadow-xl hover:shadow-primary/25"
+                  className="inline-flex items-center gap-2.5 px-8 py-4 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-xl hover:shadow-cta/25"
                 >
                   Book a Free Coffee Chat
                   <ArrowRight className="w-4 h-4" />

@@ -171,7 +171,7 @@ export function Framework() {
                 <div className="cinzel text-foreground text-sm mb-1">Ready to begin?</div>
                 <div className="text-xs text-muted-foreground">Most clients see clarity within the first 90 days.</div>
               </div>
-              <button className="px-6 py-3 bg-primary text-primary-foreground text-sm tracking-wide rounded hover:bg-primary/85 transition-all hover:shadow-lg hover:shadow-primary/25 whitespace-nowrap">
+              <button className="px-6 py-3 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-lg hover:shadow-cta/25 whitespace-nowrap">
                 Start Your Plan
               </button>
             </motion.div>
