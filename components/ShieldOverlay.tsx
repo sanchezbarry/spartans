@@ -52,16 +52,6 @@ function VaultDial() {
     >
       {/* Outer track */}
       <circle cx={CX} cy={CY} r={R + 12} fill="none" stroke={GOLD} strokeWidth="0.5" strokeOpacity="0.3" />
-      {/* Vault bolt dashes */}
-      <circle
-        cx={CX} cy={CY} r={R}
-        fill="none"
-        stroke={GOLD}
-        strokeWidth="10"
-        strokeDasharray="20 15"
-        strokeLinecap="round"
-        strokeOpacity="0.88"
-      />
       {/* Inner ring */}
       <circle cx={CX} cy={CY} r={R - 22} fill="none" stroke={GOLD} strokeWidth="0.8" strokeOpacity="0.45" />
       {/* Tick marks */}
@@ -213,11 +203,11 @@ export function ShieldOverlay() {
         className="fixed inset-y-0 left-1/2 pointer-events-none"
         style={{
           translateX: '-50%',
-          width: '2px',
+          width: '1px',
           background:
-            'linear-gradient(to bottom, transparent 0%, #C8A96A 12%, #FFF5D6 48%, #FFFFFF 50%, #FFF5D6 52%, #C8A96A 88%, transparent 100%)',
+            'linear-gradient(to bottom, transparent 0%, #C8A96A 15%, #FFF5D6 48%, #FFFFFF 50%, #FFF5D6 52%, #C8A96A 85%, transparent 100%)',
           boxShadow:
-            '0 0 4px 2px rgba(255,237,180,0.95), 0 0 18px 6px rgba(200,169,106,0.75), 0 0 50px 16px rgba(200,169,106,0.35), 0 0 100px 30px rgba(200,169,106,0.12)',
+            '0 0 3px 1px rgba(255,237,180,0.4), 0 0 10px 3px rgba(200,169,106,0.25)',
         }}
         initial={{ opacity: 0, scaleY: 0 }}
         animate={
@@ -239,7 +229,7 @@ export function ShieldOverlay() {
           className="absolute inset-0"
           style={{
             boxShadow:
-              '0 0 30px 10px rgba(200,169,106,0.6), 0 0 80px 30px rgba(200,169,106,0.25)',
+              '0 0 12px 4px rgba(200,169,106,0.2), 0 0 30px 10px rgba(200,169,106,0.1)',
           }}
           animate={phase === 'vault' ? { opacity: [0.4, 1, 0.4] } : { opacity: 0 }}
           transition={

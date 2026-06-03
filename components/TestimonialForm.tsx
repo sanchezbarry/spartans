@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { Star } from 'lucide-react'
+import { useRef, useState } from 'react'
+import { Star, Upload, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -18,6 +18,26 @@ interface Props {
   advisorName: string
 }
 
+async function compressImage(file: File, maxPx = 800, quality = 0.75): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const img = new Image()
+    const url = URL.createObjectURL(file)
+    img.onload = () => {
+      URL.revokeObjectURL(url)
+      const scale = Math.min(1, maxPx / Math.max(img.width, img.height))
+      const w = Math.round(img.width * scale)
+      const h = Math.round(img.height * scale)
+      const canvas = document.createElement('canvas')
+      canvas.width = w
+      canvas.height = h
+      canvas.getContext('2d')!.drawImage(img, 0, 0, w, h)
+      canvas.toBlob((blob) => blob ? resolve(blob) : reject(new Error('Compression failed')), 'image/jpeg', quality)
+    }
+    img.onerror = reject
+    img.src = url
+  })
+}
+
 export function TestimonialForm({ advisorSlug, advisorName }: Props) {
   const [clientName, setClientName] = useState('')
   const [clientTitle, setClientTitle] = useState('')
@@ -25,16 +45,45 @@ export function TestimonialForm({ advisorSlug, advisorName }: Props) {
   const [quote, setQuote] = useState('')
   const [rating, setRating] = useState(0)
   const [hovered, setHovered] = useState(0)
+  const [photo, setPhoto] = useState<File | null>(null)
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null)
   const [status, setStatus] = useState<Status>('idle')
+  const fileRef = useRef<HTMLInputElement>(null)
+
+  function handlePhotoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setPhoto(file)
+    setPhotoPreview(URL.createObjectURL(file))
+  }
+
+  function removePhoto() {
+    setPhoto(null)
+    if (photoPreview) URL.revokeObjectURL(photoPreview)
+    setPhotoPreview(null)
+    if (fileRef.current) fileRef.current.value = ''
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setStatus('loading')
 
+    const formData = new FormData()
+    formData.append('advisorSlug', advisorSlug)
+    formData.append('clientName', clientName)
+    formData.append('clientTitle', clientTitle)
+    formData.append('heading', heading)
+    formData.append('quote', quote)
+    if (rating) formData.append('rating', String(rating))
+
+    if (photo) {
+      const compressed = await compressImage(photo)
+      formData.append('photo', compressed, 'photo.jpg')
+    }
+
     const res = await fetch('/api/testimonials', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ advisorSlug, clientName, clientTitle, heading, quote, rating }),
+      body: formData,
     })
 
     if (res.ok) {
@@ -44,6 +93,7 @@ export function TestimonialForm({ advisorSlug, advisorName }: Props) {
       setHeading('')
       setQuote('')
       setRating(0)
+      removePhoto()
     } else {
       setStatus('error')
     }
@@ -87,7 +137,9 @@ export function TestimonialForm({ advisorSlug, advisorName }: Props) {
         </Field>
 
         <Field>
-          <FieldLabel htmlFor="heading">Heading <span className="text-muted-foreground font-normal">(optional)</span></FieldLabel>
+          <FieldLabel htmlFor="heading">
+            Heading <span className="text-muted-foreground font-normal">(optional)</span>
+          </FieldLabel>
           <Input
             id="heading"
             type="text"
@@ -135,12 +187,49 @@ export function TestimonialForm({ advisorSlug, advisorName }: Props) {
           </div>
         </Field>
 
+        {/* Photo upload */}
+        <Field>
+          <FieldLabel>
+            Photo <span className="text-muted-foreground font-normal">(optional)</span>
+          </FieldLabel>
+          {photoPreview ? (
+            <div className="flex items-center gap-4">
+              <img
+                src={photoPreview}
+                alt="Preview"
+                className="w-16 h-16 rounded-full object-cover border border-border"
+              />
+              <button
+                type="button"
+                onClick={removePhoto}
+                className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <X className="w-4 h-4" />
+                Remove
+              </button>
+            </div>
+          ) : (
+            <label className="flex items-center gap-3 w-fit cursor-pointer px-4 py-2.5 rounded-md border border-input bg-background hover:bg-muted transition-colors text-sm text-muted-foreground">
+              <Upload className="w-4 h-4" />
+              Upload photo
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                className="sr-only"
+                onChange={handlePhotoChange}
+              />
+            </label>
+          )}
+          <FieldDescription>JPG, PNG or WebP. Will be compressed automatically.</FieldDescription>
+        </Field>
+
         {status === 'error' && (
           <p className="text-sm text-red-500">Something went wrong. Please try again.</p>
         )}
 
         <Field>
-          <Button type="submit" disabled={status === 'loading'}>
+          <Button type="submit" disabled={status === 'loading'} className="rounded-lg">
             {status === 'loading' ? 'Submitting…' : 'Submit Testimonial'}
           </Button>
         </Field>

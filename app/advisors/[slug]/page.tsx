@@ -5,6 +5,7 @@ import { ScrollProgress } from '@/components/ScrollProgress'
 import { TestimonialForm } from '@/components/TestimonialForm'
 import { advisors, getAdvisorBySlug } from '@/lib/advisors'
 import { sanityClient, TESTIMONIALS_BY_ADVISOR_QUERY, SanityTestimonial } from '@/lib/sanity'
+import Image from 'next/image'
 import { Star, Mail, Phone, Quote } from 'lucide-react'
 
 export const revalidate = 60
@@ -156,36 +157,51 @@ export default async function AdvisorPage({ params }: { params: Promise<{ slug: 
                 {testimonials.map((t) => (
                   <div
                     key={t._id}
-                    className="flex flex-col bg-card border border-border rounded-xl p-6 hover:border-primary/30 transition-all"
+                    className="flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:border-primary/30 transition-all"
                   >
-                    <Quote className="w-6 h-6 text-primary/40 mb-3 shrink-0" />
-
-                    {t.heading && (
-                      <p className="cinzel text-sm mb-2">{t.heading}</p>
-                    )}
-
-                    <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-4">
-                      {t.quote}
-                    </p>
-
-                    {t.rating && (
-                      <div className="flex gap-0.5 mb-3">
-                        {[1, 2, 3, 4, 5].map((s) => (
-                          <Star
-                            key={s}
-                            className="w-3.5 h-3.5"
-                            fill={s <= t.rating! ? 'currentColor' : 'none'}
-                            color={s <= t.rating! ? 'var(--color-primary)' : 'currentColor'}
-                          />
-                        ))}
+                    {t.photo?.url && (
+                      <div className="relative w-full aspect-4/3 overflow-hidden">
+                        <Image
+                          src={t.photo.url}
+                          alt={t.clientName}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover"
+                        />
                       </div>
                     )}
 
-                    <div className="pt-4 border-t border-border">
-                      <p className="text-sm font-medium">{t.clientName}</p>
-                      {t.clientTitle && (
-                        <p className="text-xs text-muted-foreground">{t.clientTitle}</p>
+                    <div className="flex flex-col flex-1 p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <Quote className="w-6 h-6 text-primary/40 shrink-0" />
+                        {t.rating && (
+                          <div className="flex gap-0.5">
+                            {[1, 2, 3, 4, 5].map((s) => (
+                              <Star
+                                key={s}
+                                className="w-3.5 h-3.5"
+                                fill={s <= t.rating! ? 'currentColor' : 'none'}
+                                color={s <= t.rating! ? 'var(--color-primary)' : 'currentColor'}
+                              />
+                            ))}
+                          </div>
+                        )}
+                      </div>
+
+                      {t.heading && (
+                        <p className="cinzel text-sm mb-2">{t.heading}</p>
                       )}
+
+                      <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-5">
+                        {t.quote}
+                      </p>
+
+                      <div className="pt-4 border-t border-border">
+                        <p className="text-sm font-medium">{t.clientName}</p>
+                        {t.clientTitle && (
+                          <p className="text-xs text-muted-foreground">{t.clientTitle}</p>
+                        )}
+                      </div>
                     </div>
                   </div>
                 ))}

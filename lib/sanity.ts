@@ -4,7 +4,7 @@ export const sanityClient = createClient({
   projectId: 'wcccrefo',
   dataset: 'production',
   apiVersion: '2025-05-14',
-  useCdn: true,
+  useCdn: false,
 })
 
 export interface SanityPost {
