@@ -1,13 +1,21 @@
 import {defineType, defineField} from 'sanity'
 
 const ADVISOR_OPTIONS = [
-  {title: 'Dovanson Quah', value: 'dovanson-quah'},
-  {title: 'Marcus Tan', value: 'marcus-tan'},
-  {title: 'Priya Krishnan', value: 'priya-krishnan'},
-  {title: 'Jason Lim', value: 'jason-lim'},
-  {title: 'Aisha Rahman', value: 'aisha-rahman'},
-  {title: 'Kevin Chen', value: 'kevin-chen'},
-  {title: 'Sophie Ng', value: 'sophie-ng'},
+  {title: 'Dovanson Quah', value: 'assuredbydovanson'},
+  {title: 'Yvonne Lim', value: 'assuredbyyvonne'},
+  {title: 'Alicia Pe', value: 'assuredbyalicia'},
+  {title: 'Chermayne Tng', value: 'assuredbychermayne'},
+  {title: 'Glenn Tng', value: 'assuredbyglenn'},
+  {title: 'Janet Lim', value: 'assuredbyjanet'},
+  {title: 'Lucas Ng', value: 'assuredbylucas'},
+  {title: 'Matthias Sim', value: 'assuredbymatthias'},
+  {title: 'Ryan Tan Li Wei', value: 'assuredbyryan'},
+  {title: 'Lim Shearn Chong', value: 'assuredbyshearn'},
+  {title: 'Stacey Teo', value: 'assuredbystacey'},
+  {title: 'Lai Sijun', value: 'assuredbysijun'},
+  {title: 'Venice Tan', value: 'assuredbyvenice'},
+  {title: 'Eng Wei Hao', value: 'assuredbyweihao'},
+  {title: 'Xxia Yip', value: 'assuredbyxxia'},
 ]
 
 export const testimonialType = defineType({
