@@ -10,6 +10,42 @@ export const metadata = {
   description: 'Meet the SPARTANS Advisors team — dedicated financial consultants committed to your financial future.',
 }
 
+const LEADER_SLUGS = ['assuredbydovanson', 'assuredbyshearn', 'assuredbychermayne']
+
+const leaders = LEADER_SLUGS.map((s) => advisors.find((a) => a.slug === s)!)
+const rest = advisors.filter((a) => !LEADER_SLUGS.includes(a.slug))
+
+function AdvisorCard({ advisor, large = false }: { advisor: typeof advisors[0]; large?: boolean }) {
+  return (
+    <Link
+      href={`/advisor/${advisor.slug}`}
+      className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300"
+    >
+      <div className="relative aspect-3/4 overflow-hidden bg-muted">
+        <Image
+          src={advisor.image}
+          alt={advisor.name}
+          fill
+          sizes={large
+            ? '(max-width: 768px) 90vw, 30vw'
+            : '(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw'}
+          className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          priority={large}
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
+      </div>
+      <div className={large ? 'p-5' : 'p-4'}>
+        <p className={`cinzel font-medium text-foreground leading-snug mb-1 group-hover:text-primary transition-colors ${large ? 'text-base' : 'text-sm'}`}>
+          {advisor.name}
+        </p>
+        <p className={`text-muted-foreground leading-snug ${large ? 'text-sm' : 'text-xs'}`}>
+          {advisor.title}
+        </p>
+      </div>
+    </Link>
+  )
+}
+
 export default function TeamPage() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -42,40 +78,38 @@ export default function TeamPage() {
           <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/30 to-transparent" />
         </section>
 
-        {/* Advisor grid */}
         <section className="py-20 lg:py-28">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-6">
-              {advisors.map((advisor) => (
-                <Link
-                  key={advisor.slug}
-                  href={`/advisor/${advisor.slug}`}
-                  className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-xl hover:shadow-primary/8 transition-all duration-300"
-                >
-                  {/* Photo */}
-                  <div className="relative aspect-[3/4] overflow-hidden bg-muted">
-                    <Image
-                      src={advisor.image}
-                      alt={advisor.name}
-                      fill
-                      sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-                      className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
-                  </div>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 space-y-16">
 
-                  {/* Info */}
-                  <div className="p-4">
-                    <p className="cinzel text-sm font-medium text-foreground leading-snug mb-1 group-hover:text-primary transition-colors">
-                      {advisor.name}
-                    </p>
-                    <p className="text-xs text-muted-foreground leading-snug">
-                      {advisor.title}
-                    </p>
-                  </div>
-                </Link>
-              ))}
+            {/* Leaders */}
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-6 h-px bg-accent" />
+                <span className="text-xs text-accent tracking-[0.3em] uppercase font-medium">Leadership</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 lg:gap-8 max-w-3xl">
+                {leaders.map((advisor) => (
+                  <AdvisorCard key={advisor.slug} advisor={advisor} large />
+                ))}
+              </div>
             </div>
+
+            {/* Divider */}
+            <div className="h-px bg-border" />
+
+            {/* Rest of team */}
+            <div>
+              <div className="flex items-center gap-3 mb-8">
+                <div className="w-6 h-px bg-accent" />
+                <span className="text-xs text-accent tracking-[0.3em] uppercase font-medium">Our Advisors</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 lg:gap-5">
+                {rest.map((advisor) => (
+                  <AdvisorCard key={advisor.slug} advisor={advisor} />
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
       </main>
