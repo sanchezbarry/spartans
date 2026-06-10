@@ -1,4 +1,4 @@
-import { Shield, Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 
@@ -23,10 +23,8 @@ export function Footer() {
       { label: 'FAQ', href: '#' },
     ],
     legal: [
-      { label: 'Privacy Policy', href: '#' },
-      { label: 'Terms of Service', href: '#' },
-      { label: 'ADV Part 2', href: '#' },
-      { label: 'Disclosures', href: '#' },
+      { label: 'Terms of Use', href: '/terms' },
+      { label: 'PDPA Policy', href: '/pdpa' },
     ],
   };
 
@@ -130,7 +128,7 @@ export function Footer() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 py-12 border-y border-border">
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <Phone className="w-5 h-5 text-primary" />
             </div>
             <div>
@@ -142,7 +140,7 @@ export function Footer() {
           </div>
 
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <Mail className="w-5 h-5 text-primary" />
             </div>
             <div>
@@ -154,7 +152,7 @@ export function Footer() {
           </div>
 
           <div className="flex items-start gap-4">
-            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
               <MapPin className="w-5 h-5 text-primary" />
             </div>
             <div>
@@ -178,7 +176,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+      <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/50 to-transparent"></div>
     </footer>
   );
 }

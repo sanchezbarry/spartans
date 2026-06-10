@@ -6,6 +6,17 @@ import type { SanityPost } from '../../lib/sanity';
 
 export const revalidate = 60;
 
+export const metadata = {
+  title: 'Financial Planning Articles & Insights',
+  description:
+    'Read expert articles on insurance, retirement planning, CPF strategies, and wealth management from SPARTANS Advisors — Singapore\'s AIA-affiliated financial advisory team.',
+  openGraph: {
+    title: 'Financial Planning Articles & Insights | SPARTANS Advisors',
+    description:
+      'Expert insights on insurance, CPF, retirement, and wealth management from Singapore financial advisors.',
+  },
+};
+
 export default async function ArticlesPage() {
   const articles: SanityPost[] = await sanityClient.fetch(POSTS_QUERY);
 

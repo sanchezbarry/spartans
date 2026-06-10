@@ -34,12 +34,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const post: SanityPostFull | null = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
   if (!post) return {};
+  const title = post.seoTitle ?? post.title;
+  const description = post.seoDescription ?? post.excerpt;
   return {
-    title: post.seoTitle ?? post.title,
-    description: post.seoDescription ?? post.excerpt,
-    openGraph: post.coverImage?.url
-      ? { images: [{ url: post.coverImage.url }] }
-      : undefined,
+    title,
+    description,
+    openGraph: {
+      title: `${title} | SPARTANS Advisors`,
+      description,
+      type: 'article',
+      ...(post.coverImage?.url ? { images: [{ url: post.coverImage.url }] } : {}),
+    },
   };
 }
 

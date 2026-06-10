@@ -6,8 +6,14 @@ import { ScrollProgress } from '@/components/ScrollProgress'
 import { advisors } from '@/lib/advisors'
 
 export const metadata = {
-  title: 'Our Team | SPARTANS Advisors',
-  description: 'Meet the SPARTANS Advisors team — dedicated financial consultants committed to your financial future.',
+  title: 'Meet Our Financial Advisors',
+  description:
+    'Meet the SPARTANS Advisors team — AIA-accredited financial consultants based in Tampines, Singapore. Find the right advisor for insurance, retirement planning, CPF strategies, and wealth management.',
+  openGraph: {
+    title: 'Meet Our Financial Advisors | SPARTANS Advisors',
+    description:
+      'AIA-accredited financial consultants in Singapore. Expert guidance on insurance, CPF, retirement, and wealth management. Find your advisor.',
+  },
 }
 
 const LEADER_SLUGS = ['assuredbydovanson', 'assuredbyshearn', 'assuredbychermayne']

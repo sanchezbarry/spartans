@@ -95,12 +95,12 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
                 transition={{ duration: 0.35, delay: i * 0.05, ease: 'easeOut' }}
                 className="group flex flex-col bg-card border border-border rounded overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
               >
-                {/* Cover image */}
+                {/* Thumbnail (falls back to cover image) */}
                 <div className="relative aspect-[16/10] overflow-hidden bg-muted">
-                  {article.coverImage?.url ? (
+                  {(article.thumbnail?.url ?? article.coverImage?.url) ? (
                     <img
-                      src={article.coverImage.url}
-                      alt={article.coverImage.alt ?? article.title}
+                      src={article.thumbnail?.url ?? article.coverImage!.url}
+                      alt={article.thumbnail?.alt ?? article.coverImage?.alt ?? article.title}
                       className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (

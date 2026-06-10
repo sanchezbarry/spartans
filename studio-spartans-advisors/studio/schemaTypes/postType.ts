@@ -56,6 +56,7 @@ export const postType = defineType({
     defineField({
       name: 'coverImage',
       title: 'Cover Image',
+      description: 'Full-width hero image shown at the top of the article page',
       type: 'image',
       options: {
         hotspot: true,
@@ -69,6 +70,23 @@ export const postType = defineType({
         }),
       ],
       validation: (Rule) => Rule.required().assetRequired(),
+    }),
+
+    defineField({
+      name: 'thumbnail',
+      title: 'Thumbnail Image',
+      description: 'Smaller image used in the articles grid/listing. If not set, the cover image is used as fallback.',
+      type: 'image',
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        defineField({
+          name: 'alt',
+          title: 'Alt Text',
+          type: 'string',
+        }),
+      ],
     }),
 
     defineField({

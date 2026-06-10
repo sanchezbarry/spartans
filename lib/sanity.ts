@@ -19,6 +19,10 @@ export interface SanityPost {
     url: string
     alt: string
   }
+  thumbnail?: {
+    url: string
+    alt?: string
+  }
 }
 
 export interface SanityPostFull extends SanityPost {
@@ -40,6 +44,10 @@ export const POSTS_QUERY = `
     publishedAt,
     featured,
     coverImage {
+      "url": asset->url,
+      alt
+    },
+    thumbnail {
       "url": asset->url,
       alt
     }
@@ -75,6 +83,34 @@ export const POST_BY_SLUG_QUERY = `
 
 export const ALL_SLUGS_QUERY = `
   *[_type == "post"] { "slug": slug.current }
+`
+
+// ── Events ────────────────────────────────────────────────────────────────────
+
+export interface SanityEvent {
+  _id: string
+  title: string
+  description: string
+  date: string
+  time: string
+  location: string
+  type?: string
+  isFree: boolean
+  registerUrl?: string
+}
+
+export const EVENTS_QUERY = `
+  *[_type == "event"] | order(date asc) {
+    _id,
+    title,
+    description,
+    date,
+    time,
+    location,
+    type,
+    isFree,
+    registerUrl
+  }
 `
 
 // ── Testimonials ──────────────────────────────────────────────────────────────

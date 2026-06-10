@@ -8,6 +8,20 @@ import ContactUsSection from '../components/ContactUsSection';
 import { Testimonials } from '../components/Testimonials';
 import { ScrollProgress } from '../components/ScrollProgress';
 
+export const metadata: Metadata = {
+  title: {
+    absolute: 'SPARTANS Advisors — Financial Planning & Insurance Singapore',
+  },
+  description:
+    'SPARTANS Advisors is an AIA-affiliated financial advisory team in Tampines, Singapore. We help individuals and families plan their insurance, CPF, retirement, and wealth — with honesty and no hard sell.',
+  openGraph: {
+    title: 'SPARTANS Advisors — Financial Planning & Insurance Singapore',
+    description:
+      'AIA-affiliated financial advisors in Singapore. Expert guidance on insurance, CPF, retirement planning, and wealth management. Book a free coffee consultation.',
+    type: 'website',
+  },
+};
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">

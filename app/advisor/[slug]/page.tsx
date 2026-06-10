@@ -19,9 +19,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params
   const advisor = getAdvisorBySlug(slug)
   if (!advisor) return {}
+  const description = `${advisor.specialty}. Book a consultation with ${advisor.name}, an AIA-affiliated financial consultant at SPARTANS Advisors in Singapore.`
   return {
-    title: `${advisor.name} — ${advisor.title} | SPARTANS Advisors`,
-    description: `${advisor.specialty}. ${advisor.bio.slice(0, 140)}…`,
+    title: `${advisor.name} — Financial Advisor Singapore`,
+    description,
+    openGraph: {
+      title: `${advisor.name} | SPARTANS Advisors`,
+      description,
+      ...(advisor.image ? { images: [{ url: advisor.image }] } : {}),
+    },
   }
 }
 
@@ -51,7 +57,7 @@ export default async function AdvisorPage({ params }: { params: Promise<{ slug: 
 
               {/* ── Photo ── */}
               <div className="order-first lg:order-last flex justify-center lg:justify-end">
-                <div className="relative w-full max-w-sm lg:max-w-md xl:max-w-lg aspect-[3/4] rounded-2xl overflow-hidden border border-border/60 shadow-2xl">
+                <div className="relative w-full max-w-sm lg:max-w-md xl:max-w-lg aspect-3/4 rounded-2xl overflow-hidden border border-border/60 shadow-2xl">
                   <Image
                     src={advisor.image}
                     alt={advisor.name}

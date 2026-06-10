@@ -150,52 +150,72 @@ export function ShieldOverlay() {
           />
         )}
 
-        {/* Logo */}
+        {/* Logo + flanking brand words */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: phase === 'vault' ? 1.1 : 1.0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {/* Ambient glow */}
-            <motion.div
-              className="absolute pointer-events-none"
-              style={{
-                inset: '-72px',
-                borderRadius: '50%',
-                background: 'radial-gradient(circle, rgba(200,169,106,0.38) 0%, transparent 65%)',
-              }}
-              animate={{ opacity: [0.45, 0.95, 0.45] }}
-              transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <Image
-              src="/logo.png"
-              alt="Spartans Advisors"
-              width={96}
-              height={96}
-              priority
-              className="relative z-10"
-            />
-          </motion.div>
-        </div>
+          <div className="flex items-center gap-4">
 
-        {/* Brand label */}
-        <motion.p
-          className="cinzel absolute left-1/2 -translate-x-1/2 pointer-events-none"
-          style={{
-            bottom: '28%',
-            fontSize: '0.62rem',
-            letterSpacing: '0.38em',
-            textTransform: 'uppercase',
-            color: 'var(--foreground)',
-            opacity: 0,
-          }}
-          animate={{ opacity: phase === 'intro' ? 0 : 0.42, y: phase === 'intro' ? 14 : 0 }}
-          transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-        >
-          Spartans Advisors
-        </motion.p>
+            {/* "Spartans" — left */}
+            <motion.span
+              className="cinzel pointer-events-none"
+              style={{
+                fontSize: '0.62rem',
+                letterSpacing: '0.38em',
+                textTransform: 'uppercase',
+                color: 'var(--foreground)',
+                opacity: 0,
+              }}
+              animate={{ opacity: phase === 'intro' ? 0 : 0.42, x: phase === 'intro' ? -10 : 0 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Spartans
+            </motion.span>
+
+            {/* Logo */}
+            <motion.div
+              className="relative"
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: phase === 'vault' ? 1.1 : 1.0 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {/* Ambient glow */}
+              <motion.div
+                className="absolute pointer-events-none"
+                style={{
+                  inset: '-72px',
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, rgba(200,169,106,0.38) 0%, transparent 65%)',
+                }}
+                animate={{ opacity: [0.45, 0.95, 0.45] }}
+                transition={{ duration: 2.8, repeat: Infinity, ease: 'easeInOut' }}
+              />
+              <Image
+                src="/logo.png"
+                alt="Spartans Advisors"
+                width={96}
+                height={96}
+                priority
+                className="relative z-10"
+              />
+            </motion.div>
+
+            {/* "Advisors" — right */}
+            <motion.span
+              className="cinzel pointer-events-none"
+              style={{
+                fontSize: '0.62rem',
+                letterSpacing: '0.38em',
+                textTransform: 'uppercase',
+                color: 'var(--foreground)',
+                opacity: 0,
+              }}
+              animate={{ opacity: phase === 'intro' ? 0 : 0.42, x: phase === 'intro' ? 10 : 0 }}
+              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Advisors
+            </motion.span>
+
+          </div>
+        </div>
       </motion.div>
 
       {/* Gold seam — appears during vault phase, flashes on split */}
