@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
@@ -52,10 +53,14 @@ const portableTextComponents = {
   types: {
     image: ({ value }: { value: { url: string; alt?: string; caption?: string } }) => (
       <figure className="my-10">
-        <img
+        <Image
           src={value.url}
           alt={value.alt ?? ''}
-          className="w-full rounded object-cover"
+          width={0}
+          height={0}
+          sizes="(max-width: 768px) 100vw, 768px"
+          style={{ width: '100%', height: 'auto' }}
+          className="rounded"
         />
         {value.caption && (
           <figcaption className="mt-3 text-center text-xs text-muted-foreground tracking-wide">
@@ -133,10 +138,13 @@ export default async function ArticlePage({
       {/* Hero image */}
       {post.coverImage?.url && (
         <div className="relative w-full aspect-21/9 max-h-130 overflow-hidden bg-muted mt-20">
-          <img
+          <Image
             src={post.coverImage.url}
             alt={post.coverImage.alt ?? post.title}
-            className="w-full h-full object-cover object-center"
+            fill
+            sizes="100vw"
+            className="object-cover object-center"
+            priority
           />
           <div className="absolute inset-0 bg-linear-to-t from-background via-background/20 to-transparent" />
         </div>

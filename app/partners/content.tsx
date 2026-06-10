@@ -5,6 +5,7 @@ import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import { ArrowRight, Tag } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const partners = [
@@ -110,10 +111,12 @@ export function PartnersContent() {
                   className="group flex flex-col bg-card border border-border rounded-xl overflow-hidden hover:border-primary/40 hover:shadow-2xl hover:shadow-primary/8 transition-all"
                 >
                   <div className="relative h-52 overflow-hidden bg-muted">
-                    <img
+                    <Image
                       src={partner.logo}
                       alt={partner.name}
-                      className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
+                      fill
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
                     />
                     <div className="absolute inset-0 bg-linear-to-t from-card/70 via-transparent to-transparent" />
                   </div>

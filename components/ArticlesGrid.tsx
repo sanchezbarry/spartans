@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { ArrowRight, RotateCcw } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 import type { SanityPost } from '../lib/sanity';
 
@@ -96,19 +97,21 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
                 className="group flex flex-col bg-card border border-border rounded overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
               >
                 {/* Thumbnail (falls back to cover image) */}
-                <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+                <div className="relative aspect-16/10 overflow-hidden bg-muted">
                   {(article.thumbnail?.url ?? article.coverImage?.url) ? (
-                    <img
+                    <Image
                       src={article.thumbnail?.url ?? article.coverImage!.url}
                       alt={article.thumbnail?.alt ?? article.coverImage?.alt ?? article.title}
-                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (
-                    <div className="w-full h-full bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
+                    <div className="w-full h-full bg-linear-to-br from-muted to-muted/50 flex items-center justify-center">
                       <span className="text-xs text-muted-foreground tracking-widest uppercase">No image</span>
                     </div>
                   )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-card/40 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-linear-to-t from-card/40 via-transparent to-transparent" />
 
                   {article.featured && (
                     <div className="absolute top-4 left-4">

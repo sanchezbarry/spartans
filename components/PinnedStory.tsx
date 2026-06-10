@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Shield, Users, Heart, TrendingUp, ArrowRight, Star, Coffee, ChevronLeft, ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 /* ─────────────────────────────────────────────
@@ -161,7 +162,7 @@ export function PinnedStory() {
                   </div>
                   <div className="hidden lg:block lg:col-span-6">
                     <div className="relative rounded-2xl overflow-hidden aspect-4/3 bg-card border border-border">
-                      <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800&h=600&fit=crop&auto=format" alt="Team over coffee" className="w-full h-full object-cover" />
+                      <Image src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=800&h=600&fit=crop&auto=format" alt="Team over coffee" fill sizes="50vw" className="object-cover" />
                       <div className="absolute inset-0 bg-linear-to-t from-background/70 via-transparent to-transparent" />
                       <div className="absolute bottom-6 left-6 flex items-center gap-3">
                         <div className="w-8 h-8 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center">
@@ -267,7 +268,7 @@ export function PinnedStory() {
                   </div>
                   <div className="hidden lg:block lg:col-span-6">
                     <div className="relative rounded-2xl overflow-hidden aspect-4/3 bg-card border border-border">
-                      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&auto=format" alt="Families achieving goals" className="w-full h-full object-cover" />
+                      <Image src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&auto=format" alt="Families achieving goals" fill sizes="50vw" className="object-cover" />
                       <div className="absolute inset-0 bg-linear-to-t from-background/70 via-transparent to-transparent" />
                     </div>
                   </div>

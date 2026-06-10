@@ -194,6 +194,7 @@ export function TestimonialForm({ advisorSlug, advisorName }: Props) {
           </FieldLabel>
           {photoPreview ? (
             <div className="flex items-center gap-4">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={photoPreview}
                 alt="Preview"

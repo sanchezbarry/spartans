@@ -18,6 +18,7 @@ import {
   ChevronDown,
 } from 'lucide-react';
 import { useState } from 'react';
+import Image from 'next/image';
 
 const openings = [
   {
@@ -280,10 +281,12 @@ export function CareersContent() {
                 className="hidden lg:block"
               >
                 <div className="relative rounded-2xl overflow-hidden aspect-4/3 bg-card border border-border">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&h=500&fit=crop&auto=format"
                     alt="Spartans team collaborating"
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="50vw"
+                    className="object-cover"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-background/60 via-transparent to-transparent" />
                   <div className="absolute bottom-6 left-6 right-6 p-4 bg-card/90 backdrop-blur border border-border rounded-lg">

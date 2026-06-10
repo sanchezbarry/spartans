@@ -8,7 +8,7 @@ import ContactUsSection from '../components/ContactUsSection';
 import { Testimonials } from '../components/Testimonials';
 import { ScrollProgress } from '../components/ScrollProgress';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: {
     absolute: 'SPARTANS Advisors — Financial Planning & Insurance Singapore',
   },
