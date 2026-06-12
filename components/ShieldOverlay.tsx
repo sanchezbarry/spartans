@@ -218,47 +218,66 @@ export function ShieldOverlay() {
         </div>
       </motion.div>
 
-      {/* Gold seam — appears during vault phase, flashes on split */}
-      <motion.div
-        className="fixed inset-y-0 left-1/2 pointer-events-none"
-        style={{
-          translateX: '-50%',
-          width: '1px',
-          background:
-            'linear-gradient(to bottom, transparent 0%, #C8A96A 15%, #FFF5D6 48%, #FFFFFF 50%, #FFF5D6 52%, #C8A96A 85%, transparent 100%)',
-          boxShadow:
-            '0 0 3px 1px rgba(255,237,180,0.4), 0 0 10px 3px rgba(200,169,106,0.25)',
-        }}
-        initial={{ opacity: 0, scaleY: 0 }}
-        animate={
-          isSplit
-            ? { opacity: 0, scaleY: 1, filter: 'brightness(6)' }
-            : phase === 'vault'
-              ? { opacity: 1, scaleY: 1, filter: 'brightness(1)' }
-              : { opacity: 0, scaleY: 0, filter: 'brightness(1)' }
-        }
-        transition={
-          isSplit
-            ? { duration: 0.18, ease: 'easeIn' }
-            : phase === 'vault'
-              ? { duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }
-              : { duration: 0.1 }
-        }
-      >
+      {/* Gold seam — top & bottom segments with a gap around the shield animation */}
+      {[
+        {
+          key: 'seam-top',
+          style: { top: 0, bottom: 'calc(50% + 210px)' },
+          origin: 'top',
+          gradient:
+            'linear-gradient(to bottom, transparent 0%, #C8A96A 40%, #FFF5D6 90%, #FFFFFF 100%)',
+        },
+        {
+          key: 'seam-bottom',
+          style: { top: 'calc(50% + 210px)', bottom: 0 },
+          origin: 'bottom',
+          gradient:
+            'linear-gradient(to top, transparent 0%, #C8A96A 40%, #FFF5D6 90%, #FFFFFF 100%)',
+        },
+      ].map((seg) => (
         <motion.div
-          className="absolute inset-0"
+          key={seg.key}
+          className="fixed left-1/2 pointer-events-none"
           style={{
+            ...seg.style,
+            translateX: '-50%',
+            width: '1px',
+            transformOrigin: seg.origin,
+            background: seg.gradient,
             boxShadow:
-              '0 0 12px 4px rgba(200,169,106,0.2), 0 0 30px 10px rgba(200,169,106,0.1)',
+              '0 0 3px 1px rgba(255,237,180,0.4), 0 0 10px 3px rgba(200,169,106,0.25)',
           }}
-          animate={phase === 'vault' ? { opacity: [0.4, 1, 0.4] } : { opacity: 0 }}
-          transition={
-            phase === 'vault'
-              ? { delay: 0.8, duration: 1.6, repeat: Infinity, ease: 'easeInOut' }
-              : { duration: 0.1 }
+          initial={{ opacity: 0, scaleY: 0 }}
+          animate={
+            isSplit
+              ? { opacity: 0, scaleY: 1, filter: 'brightness(6)' }
+              : phase === 'vault'
+                ? { opacity: 1, scaleY: 1, filter: 'brightness(1)' }
+                : { opacity: 0, scaleY: 0, filter: 'brightness(1)' }
           }
-        />
-      </motion.div>
+          transition={
+            isSplit
+              ? { duration: 0.18, ease: 'easeIn' }
+              : phase === 'vault'
+                ? { duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }
+                : { duration: 0.1 }
+          }
+        >
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              boxShadow:
+                '0 0 12px 4px rgba(200,169,106,0.2), 0 0 30px 10px rgba(200,169,106,0.1)',
+            }}
+            animate={phase === 'vault' ? { opacity: [0.4, 1, 0.4] } : { opacity: 0 }}
+            transition={
+              phase === 'vault'
+                ? { delay: 0.8, duration: 1.6, repeat: Infinity, ease: 'easeInOut' }
+                : { duration: 0.1 }
+            }
+          />
+        </motion.div>
+      ))}
     </div>
   );
 }

@@ -200,6 +200,50 @@ h1, h2, h3, h4, h5, h6,
   vertical-align: bottom;
 }
 
+/* ── Periodic gold sheen sweep for primary CTAs ── */
+.btn-sheen {
+  position: relative;
+  overflow: hidden;
+}
+.btn-sheen::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 30%, rgba(255, 245, 214, 0.3) 50%, transparent 70%);
+  transform: translateX(-130%);
+  animation: btn-sheen-sweep 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btn-sheen-sweep {
+  0%, 55%  { transform: translateX(-130%); }
+  75%, 100% { transform: translateX(130%); }
+}
+
+/* ── Marquee edge fade ── */
+.marquee-mask {
+  mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+}
+
+/* ── Gentle vertical float for decorative elements ── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+.animate-float-slow { animation: float-slow 6s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-mesh-a,
+  .animate-mesh-b,
+  .animate-mesh-c,
+  .animate-float-slow,
+  .btn-sheen::after {
+    animation: none;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

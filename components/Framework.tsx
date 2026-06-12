@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { Compass, Shield, TrendingUp, Users, Check } from 'lucide-react';
 
 const phases = [
@@ -95,12 +95,19 @@ export function Framework() {
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.1, duration: 0.5 }}
                 onClick={() => setActive(i)}
-                className={`w-full text-left p-5 rounded-2xl border transition-all duration-300 ${
+                className={`relative w-full text-left p-5 rounded-2xl border transition-all duration-300 ${
                   active === i
                     ? 'bg-card border-primary/50 shadow-xl shadow-primary/10'
                     : 'bg-card/40 border-border hover:border-border hover:bg-card/70'
                 }`}
               >
+                {active === i && (
+                  <motion.div
+                    layoutId="phase-active-edge"
+                    className="absolute left-0 top-4 bottom-4 w-0.5 rounded-full bg-primary"
+                    transition={{ type: 'spring', stiffness: 380, damping: 32 }}
+                  />
+                )}
                 <div className="flex items-center gap-4">
                   <span
                     className={`cinzel text-3xl font-light transition-colors ${
@@ -126,40 +133,54 @@ export function Framework() {
 
           {/* Phase detail */}
           <div className="lg:col-span-8">
-            <motion.div
-              key={active}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4 }}
-              className={`p-10 lg:p-14 rounded-2xl bg-linear-to-br ${phase.color} border border-border`}
-            >
-              <div className="flex items-center gap-5 mb-8">
-                <div className="w-14 h-14 rounded-2xl bg-card border border-primary/30 flex items-center justify-center">
-                  <phase.icon className="w-7 h-7 text-primary" />
-                </div>
-                <div>
-                  <div className="cinzel text-xs text-primary tracking-[0.25em] mb-1">
-                    Phase {phase.number}
-                  </div>
-                  <h3 className="cinzel text-2xl lg:text-3xl text-foreground">{phase.title}</h3>
-                </div>
-              </div>
-
-              <p className="text-muted-foreground text-lg leading-relaxed mb-10">
-                {phase.description}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {phase.features.map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center shrink-0">
-                      <Check className="w-3 h-3 text-primary" />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className={`p-10 lg:p-14 rounded-2xl bg-linear-to-br ${phase.color} border border-border`}
+              >
+                <div className="flex items-center gap-5 mb-8">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 0.05, ease: [0.34, 1.2, 0.64, 1] }}
+                    className="w-14 h-14 rounded-2xl bg-card border border-primary/30 flex items-center justify-center"
+                  >
+                    <phase.icon className="w-7 h-7 text-primary" />
+                  </motion.div>
+                  <div>
+                    <div className="cinzel text-xs text-primary tracking-[0.25em] mb-1">
+                      Phase {phase.number}
                     </div>
-                    <span className="text-sm text-muted-foreground">{feature}</span>
+                    <h3 className="cinzel text-2xl lg:text-3xl text-foreground">{phase.title}</h3>
                   </div>
-                ))}
-              </div>
-            </motion.div>
+                </div>
+
+                <p className="text-muted-foreground text-lg leading-relaxed mb-10">
+                  {phase.description}
+                </p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {phase.features.map((feature, fi) => (
+                    <motion.div
+                      key={feature}
+                      initial={{ opacity: 0, x: -12 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.35, delay: 0.12 + fi * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                      className="flex items-center gap-3"
+                    >
+                      <div className="w-5 h-5 rounded-lg bg-primary/10 border border-primary/25 flex items-center justify-center shrink-0">
+                        <Check className="w-3 h-3 text-primary" />
+                      </div>
+                      <span className="text-sm text-muted-foreground">{feature}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
 
             <motion.div
               initial={{ opacity: 0, y: 16 }}
@@ -171,9 +192,9 @@ export function Framework() {
                 <div className="cinzel text-foreground text-sm mb-1">Ready to begin?</div>
                 <div className="text-xs text-muted-foreground">Most clients see clarity within the first 90 days.</div>
               </div>
-              <button className="px-6 py-3 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-lg hover:shadow-cta/25 whitespace-nowrap">
+              <a href="#contact" className="btn-sheen px-6 py-3 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-lg hover:shadow-cta/25 whitespace-nowrap">
                 Start Your Plan
-              </button>
+              </a>
             </motion.div>
           </div>
         </div>

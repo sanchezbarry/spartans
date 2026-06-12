@@ -49,7 +49,7 @@ export default async function AdvisorPage({ params }: { params: Promise<{ slug: 
       <main className="pt-20">
         {/* ── Hero ── */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 bg-linear-to-br from-background via-background to-[#1a100a]" />
+          <div className="absolute inset-0 bg-background" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_40%_60%,rgba(139,29,42,0.07),transparent)]" />
 
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
@@ -66,7 +66,6 @@ export default async function AdvisorPage({ params }: { params: Promise<{ slug: 
                     className="object-cover object-top"
                     priority
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-background/40 via-transparent to-transparent" />
                 </div>
               </div>
 

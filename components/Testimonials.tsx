@@ -71,7 +71,7 @@ const awards = [
 
 function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
   return (
-    <div className="w-80 shrink-0 p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border hover:border-primary/35 transition-all hover:shadow-xl hover:shadow-primary/8 mx-3">
+    <div className="w-80 shrink-0 p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border hover:border-primary/35 transition-all duration-300 hover:shadow-xl hover:shadow-primary/8 hover:-translate-y-1 mx-3">
       <div className="flex items-start justify-between mb-4">
         <Quote className="w-7 h-7 text-accent/40" />
         <div className="flex gap-0.5">
@@ -130,10 +130,10 @@ export function Testimonials() {
         </motion.div>
       </div>
 
-      {/* ── Marquee rows (full-bleed, no max-width) ── */}
+      {/* ── Marquee rows (full-bleed, edges fade out) ── */}
       <div className="space-y-4 mb-16">
         {/* Row 1: scrolls left → */}
-        <div className="overflow-hidden">
+        <div className="overflow-hidden marquee-mask">
           <div className="flex animate-marquee-left">
             {[...row1, ...row1].map((t, i) => (
               <TestimonialCard key={`r1-${i}`} t={t} />
@@ -142,7 +142,7 @@ export function Testimonials() {
         </div>
 
         {/* Row 2: scrolls right ← */}
-        <div className="overflow-hidden">
+        <div className="overflow-hidden marquee-mask">
           <div className="flex animate-marquee-right">
             {[...row2, ...row2].map((t, i) => (
               <TestimonialCard key={`r2-${i}`} t={t} />
