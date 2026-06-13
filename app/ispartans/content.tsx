@@ -1,88 +1,52 @@
 'use client';
 
 import { motion } from 'motion/react';
+import Link from 'next/link';
 import { Navigation } from '@/components/Navigation';
 import { Footer } from '@/components/Footer';
 import { ScrollProgress } from '@/components/ScrollProgress';
 import {
   ArrowRight,
-  Star,
-  Gift,
-  Users,
-  Trophy,
-  Shield,
-  BookOpen,
   Smartphone,
-  ChevronRight,
+  Newspaper,
+  Heart,
+  ShoppingBag,
+  Wrench,
+  Gift,
 } from 'lucide-react';
 
 const features = [
   {
-    icon: Star,
-    title: 'Earn Spartan Points',
-    desc: 'Earn points every time you complete a financial milestone — reviewing your coverage, attending events, reaching savings goals, or referring friends.',
-    color: 'bg-yellow-500/10 border-yellow-500/20 text-yellow-400',
-  },
-  {
-    icon: Gift,
-    title: 'Redeem Real Rewards',
-    desc: "Swap your points for dining vouchers, retail gift cards, coffee session upgrades, or donate to charity in your name. Real rewards, no fine print.",
-    color: 'bg-primary/10 border-primary/20 text-primary',
-  },
-  {
-    icon: BookOpen,
-    title: 'Exclusive Content',
-    desc: 'Members-only access to our full financial literacy library, live Q&A sessions with advisors, and early access to The Money Mine series.',
+    icon: Newspaper,
+    title: 'Newsfeed',
+    subtitle: 'Full of events, discounts and more.',
+    desc: 'A newsfeed full of exciting events happening around Singapore, exclusive discounts and more — all curated for SPARTANS members.',
+    tags: ['Events', 'Promotions', 'News'],
     color: 'bg-blue-500/10 border-blue-500/20 text-blue-400',
   },
   {
-    icon: Users,
-    title: 'Community Circle',
-    desc: 'Join the iSPARTANS community group — share wins, ask questions, and connect with other members who are on the same financial journey as you.',
-    color: 'bg-green-500/10 border-green-500/20 text-green-400',
+    icon: Heart,
+    title: 'Health',
+    subtitle: 'Be in the pink of it.',
+    desc: 'Get exclusive discounts on outpatient, dental, specialist treatments & health screening at over 150 clinics islandwide.',
+    tags: ['Teleconsultation 24/7', 'Health Screenings', 'Clinic Discounts'],
+    color: 'bg-rose-500/10 border-rose-500/20 text-rose-400',
   },
   {
-    icon: Trophy,
-    title: 'Leaderboard & Badges',
-    desc: 'Climb the ranks from Recruit to Spartan Commander. Earn achievement badges for hitting milestones and get recognised by the community.',
-    color: 'bg-orange-500/10 border-orange-500/20 text-orange-400',
+    icon: ShoppingBag,
+    title: 'Wealth',
+    subtitle: 'Retail therapy.',
+    desc: 'Discounts, 1-for-1 deals, birthday treats and more at F&B outlets and retail partners across Singapore.',
+    tags: ['Exclusive Discounts', '1-for-1 Deals', 'Birthday Specials'],
+    color: 'bg-primary/10 border-primary/20 text-primary',
   },
   {
-    icon: Shield,
-    title: 'Policy Dashboard',
-    desc: 'See all your policies, coverage gaps, and upcoming renewals in one clean view. No more digging through emails to find your documents.',
-    color: 'bg-purple-500/10 border-purple-500/20 text-purple-400',
-  },
-];
-
-const tiers = [
-  {
-    name: 'Recruit',
-    points: '0 pts',
-    icon: '🛡️',
-    perks: ['Basic rewards catalogue', 'Community access', 'Monthly newsletter'],
-    current: false,
-  },
-  {
-    name: 'Spartan',
-    points: '500 pts',
-    icon: '⚔️',
-    perks: ['Full rewards catalogue', 'Priority event booking', 'Monthly advisor check-in', 'Exclusive content library'],
-    current: true,
-  },
-  {
-    name: 'Elite',
-    points: '2,000 pts',
-    icon: '🏆',
-    perks: ['Premium rewards (Grab, dining, retail)', 'VIP event seating', 'Quarterly advisor review', 'Family account linking'],
-    current: false,
-  },
-  {
-    name: 'Commander',
-    points: '5,000 pts',
-    icon: '👑',
-    perks: ['Top-tier rewards + cash redemption', 'Private advisory sessions', 'Annual financial health report', 'Referral bonus boost'],
-    current: false,
+    icon: Wrench,
+    title: 'Services',
+    subtitle: 'All at your fingertips.',
+    desc: 'Cleaning, sanitization, automobile services and more — access trusted service providers at member-exclusive rates.',
+    tags: ['Cleaning', 'Sanitization', 'Automobile'],
+    color: 'bg-amber-500/10 border-amber-500/20 text-amber-400',
   },
 ];
 
@@ -90,30 +54,23 @@ const howItWorks = [
   {
     step: '01',
     title: 'Download the app',
-    desc: 'Available on iOS and Android. Log in with your SPARTANS client account — it takes about 2 minutes to set up.',
+    desc: 'Available on iOS and Android. Sign in with your SPARTANS client account — setup takes about 2 minutes.',
   },
   {
     step: '02',
-    title: 'Complete your profile',
-    desc: 'Link your existing policies, set your financial goals, and take the quick onboarding quiz to personalise your dashboard.',
+    title: 'Browse your perks',
+    desc: 'Explore the newsfeed for the latest events, health deals, dining discounts, and service offers curated for members.',
   },
   {
     step: '03',
-    title: 'Start earning points',
-    desc: 'Every action counts — from attending a workshop to reviewing your coverage. Points stack up faster than you think.',
+    title: 'Unlock member rates',
+    desc: 'Show your iSPARTANS membership at participating partners to enjoy exclusive discounts not available to the public.',
   },
   {
     step: '04',
-    title: 'Redeem & grow',
-    desc: 'Swap points for rewards, climb the tiers, and track your financial progress — all in one place.',
+    title: 'Stay in the loop',
+    desc: 'Get notified about new partner deals, upcoming events, and community updates — all in one place.',
   },
-];
-
-const stats = [
-  { value: '3,200+', label: 'Active Members' },
-  { value: '42,000+', label: 'Points Redeemed' },
-  { value: '180+', label: 'Rewards Available' },
-  { value: '4.8★', label: 'App Store Rating' },
 ];
 
 export function IspartansContent() {
@@ -139,17 +96,16 @@ export function IspartansContent() {
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-6 h-px bg-accent" />
                   <span className="text-xs text-accent tracking-[0.3em] uppercase font-medium">
-                    The Rewards App
+                    The Members App
                   </span>
                 </div>
                 <h1 className="cinzel text-5xl md:text-6xl lg:text-7xl leading-[1.05] mb-6">
-                  iSPARTANS.<br />
-                  <span className="text-primary">Your rewards,</span><br />
-                  your way.
+                  Exclusive Perks,<br />
+                  <span className="text-primary">with iSPARTANS.</span>
                 </h1>
                 <p className="text-xl text-muted-foreground leading-relaxed mb-8 max-w-lg">
-                  Being a SPARTANS client should feel rewarding in every sense. Earn points for the
-                  financial moves you&apos;re already making, and redeem them for things you actually want.
+                  Unlock a world of exclusive membership perks. As a SPARTANS client, enjoy
+                  curated deals on health, dining, retail, and services — all in one app.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <a
@@ -196,37 +152,34 @@ export function IspartansContent() {
                         </div>
                       </div>
                       <div className="rounded-2xl bg-linear-to-br from-primary/30 to-primary/10 border border-primary/30 p-4 mb-4">
-                        <p className="text-xs text-primary/80 mb-1">Your Points</p>
-                        <p className="cinzel text-3xl text-primary mb-1">1,240</p>
-                        <p className="text-xs text-muted-foreground">Spartan tier · 760 to Elite</p>
-                        <div className="mt-2 h-1 bg-primary/20 rounded-full">
-                          <div className="h-full w-[62%] bg-primary rounded-full" />
-                        </div>
+                        <p className="text-xs text-primary/80 mb-1">Member Perks</p>
+                        <p className="cinzel text-lg text-primary mb-1">iSPARTANS</p>
+                        <p className="text-xs text-muted-foreground">Exclusive access · Active member</p>
                       </div>
-                      <p className="text-xs text-muted-foreground mb-3 cinzel tracking-wider">RECENT ACTIVITY</p>
+                      <p className="text-xs text-muted-foreground mb-3 cinzel tracking-wider">YOUR BENEFITS</p>
                       {[
-                        { label: 'Attended workshop', pts: '+50' },
-                        { label: 'Policy review', pts: '+30' },
-                        { label: 'Referral bonus', pts: '+100' },
+                        { label: 'Health discounts', tag: '150+ clinics' },
+                        { label: 'F&B deals', tag: '1-for-1 offers' },
+                        { label: 'Home services', tag: 'Member rates' },
                       ].map((a) => (
                         <div key={a.label} className="flex justify-between items-center py-2 border-b border-border/50">
                           <span className="text-xs text-muted-foreground">{a.label}</span>
-                          <span className="text-xs text-primary font-medium">{a.pts}</span>
+                          <span className="text-xs text-primary font-medium">{a.tag}</span>
                         </div>
                       ))}
                       <div className="mt-auto pt-4">
                         <div className="w-full py-2.5 rounded-xl bg-cta text-center">
-                          <span className="text-xs text-cta-foreground font-medium">Redeem Rewards</span>
+                          <span className="text-xs text-cta-foreground font-medium">Browse Perks</span>
                         </div>
                       </div>
                     </div>
                   </div>
                   <div className="absolute -right-8 top-16 bg-card border border-border rounded-2xl px-4 py-3 shadow-xl">
                     <div className="flex items-center gap-2">
-                      <Trophy className="w-4 h-4 text-yellow-400" />
+                      <Heart className="w-4 h-4 text-rose-400" />
                       <div>
-                        <p className="text-xs font-medium">Milestone unlocked!</p>
-                        <p className="text-xs text-muted-foreground">+100 bonus points</p>
+                        <p className="text-xs font-medium">New health deal!</p>
+                        <p className="text-xs text-muted-foreground">20% off dental</p>
                       </div>
                     </div>
                   </div>
@@ -234,8 +187,8 @@ export function IspartansContent() {
                     <div className="flex items-center gap-2">
                       <Gift className="w-4 h-4 text-primary" />
                       <div>
-                        <p className="text-xs font-medium">$20 Grab voucher</p>
-                        <p className="text-xs text-muted-foreground">Ready to redeem</p>
+                        <p className="text-xs font-medium">1-for-1 at Abundance</p>
+                        <p className="text-xs text-muted-foreground">Weekday lunch</p>
                       </div>
                     </div>
                   </div>
@@ -244,20 +197,6 @@ export function IspartansContent() {
             </div>
           </div>
           <div className="absolute bottom-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-primary/30 to-transparent" />
-        </section>
-
-        {/* ── Stats ── */}
-        <section className="border-b border-border bg-card/50">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-border">
-              {stats.map((s) => (
-                <div key={s.label} className="py-8 px-6 text-center">
-                  <div className="cinzel text-3xl text-primary mb-1">{s.value}</div>
-                  <div className="text-xs text-muted-foreground tracking-wide">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
         </section>
 
         {/* ── Features ── */}
@@ -272,15 +211,15 @@ export function IspartansContent() {
             >
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-6 h-px bg-accent" />
-                <span className="text-xs text-accent tracking-[0.3em] uppercase font-medium">Built for You</span>
+                <span className="text-xs text-accent tracking-[0.3em] uppercase font-medium">Member Benefits</span>
               </div>
               <h2 className="cinzel text-4xl md:text-5xl mb-3">Everything in one app</h2>
               <p className="text-muted-foreground max-w-xl">
-                iSPARTANS turns your financial journey into something you actually look forward to checking.
+                Four pillars of exclusive perks — curated for SPARTANS members across health, lifestyle, dining, and services.
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {features.map((f, i) => {
                 const Icon = f.icon;
                 return (
@@ -292,73 +231,26 @@ export function IspartansContent() {
                     transition={{ delay: i * 0.07, duration: 0.5 }}
                     className="group p-7 rounded-xl bg-card border border-border hover:border-primary/35 transition-all hover:shadow-xl hover:shadow-primary/8"
                   >
-                    <div className={`w-12 h-12 rounded-xl border flex items-center justify-center mb-5 group-hover:scale-110 transition-transform ${f.color}`}>
-                      <Icon className="w-6 h-6" />
+                    <div className="flex items-start gap-5 mb-4">
+                      <div className={`w-12 h-12 rounded-xl border flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform ${f.color}`}>
+                        <Icon className="w-6 h-6" />
+                      </div>
+                      <div>
+                        <h4 className="cinzel text-base mb-0.5">{f.title}</h4>
+                        <p className="text-sm text-primary/80 italic">{f.subtitle}</p>
+                      </div>
                     </div>
-                    <h4 className="cinzel text-base mb-2">{f.title}</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{f.desc}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-4">{f.desc}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {f.tags.map((tag) => (
+                        <span key={tag} className="text-xs px-2.5 py-1 rounded-full bg-muted border border-border text-muted-foreground">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </motion.div>
                 );
               })}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Tiers ── */}
-        <section className="py-24 bg-card border-y border-border">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8">
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7 }}
-              className="mb-14 text-center"
-            >
-              <div className="flex items-center justify-center gap-3 mb-4">
-                <div className="w-6 h-px bg-accent" />
-                <span className="text-xs text-accent tracking-[0.3em] uppercase font-medium">Membership Tiers</span>
-                <div className="w-6 h-px bg-accent" />
-              </div>
-              <h2 className="cinzel text-4xl md:text-5xl mb-3">Climb the ranks</h2>
-              <p className="text-muted-foreground max-w-xl mx-auto">
-                The more you grow financially, the more you earn. Each tier unlocks better rewards and more exclusive access.
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {tiers.map((tier, i) => (
-                <motion.div
-                  key={tier.name}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.08, duration: 0.5 }}
-                  className={`relative p-6 rounded-xl border transition-all ${
-                    tier.current
-                      ? 'bg-primary/5 border-primary/40 shadow-xl shadow-primary/10'
-                      : 'bg-background border-border hover:border-primary/30'
-                  }`}
-                >
-                  {tier.current && (
-                    <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="text-xs px-3 py-1 rounded-full bg-primary text-primary-foreground cinzel tracking-wider">
-                        Most Popular
-                      </span>
-                    </div>
-                  )}
-                  <div className="text-3xl mb-3">{tier.icon}</div>
-                  <h3 className="cinzel text-xl mb-1">{tier.name}</h3>
-                  <p className="text-sm text-primary mb-5">{tier.points}</p>
-                  <ul className="space-y-2">
-                    {tier.perks.map((perk) => (
-                      <li key={perk} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <ChevronRight className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                        {perk}
-                      </li>
-                    ))}
-                  </ul>
-                </motion.div>
-              ))}
             </div>
           </div>
         </section>
@@ -425,19 +317,19 @@ export function IspartansContent() {
                 with us and get access to the app on day one.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a
-                  href="/events"
+                <Link
+                  href="/#contact"
                   className="inline-flex items-center gap-2.5 px-8 py-4 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-xl hover:shadow-cta/25"
                 >
                   Book a Free Coffee Chat
                   <ArrowRight className="w-4 h-4" />
-                </a>
-                <a
+                </Link>
+                <Link
                   href="/partners"
                   className="inline-flex items-center gap-2.5 px-8 py-4 border border-border text-sm text-foreground rounded hover:border-primary/40 hover:text-primary transition-all"
                 >
                   Meet Our Advisors
-                </a>
+                </Link>
               </div>
             </motion.div>
           </div>

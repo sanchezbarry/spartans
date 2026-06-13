@@ -113,6 +113,36 @@ export const EVENTS_QUERY = `
   }
 `
 
+// ── Partners ──────────────────────────────────────────────────────────────────
+
+export interface SanityPartner {
+  _id: string
+  name: string
+  offer: string
+  logo?: { url: string; alt?: string }
+  images?: { url: string; alt?: string }[]
+  companyProfile?: string
+  spartansMembersEnjoy?: string
+  socialLinks?: { platform: string; url: string }[]
+  termsAndConditions?: string
+  order?: number
+}
+
+export const PARTNERS_QUERY = `
+  *[_type == "partner"] | order(order asc) {
+    _id,
+    name,
+    offer,
+    logo { "url": asset->url, "alt": "" },
+    images[] { "url": asset->url, "alt": "" },
+    companyProfile,
+    spartansMembersEnjoy,
+    socialLinks[] { platform, url },
+    termsAndConditions,
+    order
+  }
+`
+
 // ── Testimonials ──────────────────────────────────────────────────────────────
 
 export interface SanityTestimonial {

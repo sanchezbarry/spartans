@@ -1,5 +1,8 @@
 import type { Metadata } from 'next';
+import { sanityClient, PARTNERS_QUERY, SanityPartner } from '@/lib/sanity';
 import { PartnersContent } from './content';
+
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Client Partner Benefits',
@@ -12,6 +15,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function PartnersPage() {
-  return <PartnersContent />;
+export default async function PartnersPage() {
+  const partners: SanityPartner[] = await sanityClient.fetch(PARTNERS_QUERY);
+  return <PartnersContent partners={partners} />;
 }

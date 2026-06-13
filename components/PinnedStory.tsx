@@ -247,7 +247,7 @@ export function PinnedStory() {
                       Start with a free coffee session and see why thousands of families trust us with what matters most.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 mb-10">
-                      <Link href="/events" className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-xl hover:shadow-cta/25">
+                      <Link href="/#contact" className="inline-flex items-center gap-2.5 px-7 py-3.5 bg-cta text-cta-foreground text-sm tracking-wide rounded hover:bg-cta/85 transition-all hover:shadow-xl hover:shadow-cta/25">
                         Book a Free Coffee Chat <ArrowRight className="w-4 h-4" />
                       </Link>
                       <Link href="/partners" className="inline-flex items-center gap-2.5 px-7 py-3.5 border border-border text-sm text-foreground rounded hover:border-primary/40 hover:text-primary transition-all">

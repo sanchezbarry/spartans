@@ -4,23 +4,13 @@ import Image from 'next/image';
 
 export function Footer() {
   const footerLinks = {
-    company: [
-      { label: 'Our Story', href: '/#story' },
+    explore: [
+      { label: 'Articles', href: '/articles' },
+      { label: 'Our Team', href: '/team' },
       { label: 'Our Partners', href: '/partners' },
-      { label: 'Careers', href: '/careers' },
       { label: 'Events', href: '/events' },
-    ],
-    services: [
-      { label: 'Wealth Management', href: '/#framework' },
-      { label: 'Retirement Planning', href: '/#framework' },
-      { label: 'Tax Strategies', href: '/#framework' },
-      { label: 'iSPARTANS App', href: '/ispartans' },
-    ],
-    resources: [
-      { label: 'Articles & Insights', href: '/articles' },
-      { label: 'Market Commentary', href: '/articles' },
-      { label: 'iSPARTANS Rewards', href: '/ispartans' },
-      { label: 'FAQ', href: '#' },
+      { label: 'Careers', href: '/careers' },
+      { label: 'iSPARTANS', href: '/ispartans' },
     ],
     legal: [
       { label: 'Terms of Use', href: '/terms' },
@@ -97,53 +87,12 @@ export function Footer() {
               ))}
             </div>
 
-            {/* Contact details */}
-            <div className="space-y-2.5 pt-1">
-              <a href="tel:+6512345678" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-                <Phone className="w-4 h-4 shrink-0 text-primary/60" />
-                +65 1234 5678
-              </a>
-              <a href="mailto:info@spartansadvisors.com" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors">
-                <Mail className="w-4 h-4 shrink-0 text-primary/60" />
-                info@spartansadvisors.com
-              </a>
-              <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                <MapPin className="w-4 h-4 shrink-0 text-primary/60 mt-0.5" />
-                <span>3 Tampines Grande, Level 1<br />Singapore 528799</span>
-              </div>
-            </div>
           </div>
 
-          <div className="lg:col-span-2">
-            <h4 className="mb-4">Company</h4>
-            <ul className="space-y-3">
-              {footerLinks.company.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h4 className="mb-4">Services</h4>
-            <ul className="space-y-3">
-              {footerLinks.services.map((link) => (
-                <li key={link.label}>
-                  <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="lg:col-span-2">
-            <h4 className="mb-4">Resources</h4>
-            <ul className="space-y-3">
-              {footerLinks.resources.map((link) => (
+          <div className="lg:col-span-3">
+            <h4 className="mb-4">Explore</h4>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-3">
+              {footerLinks.explore.map((link) => (
                 <li key={link.label}>
                   <a href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
                     {link.label}
@@ -164,6 +113,24 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+          </div>
+
+          <div className="lg:col-span-3">
+            <h4 className="mb-4">Contact</h4>
+            <div className="space-y-2.5">
+              <a href="tel:+6512345678" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <Phone className="w-4 h-4 shrink-0 text-primary/60" />
+                +65 1234 5678
+              </a>
+              <a href="mailto:info@spartansadvisors.com" className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-primary transition-colors">
+                <Mail className="w-4 h-4 shrink-0 text-primary/60" />
+                info@spartansadvisors.com
+              </a>
+              <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
+                <MapPin className="w-4 h-4 shrink-0 text-primary/60 mt-0.5" />
+                <span>3 Tampines Grande, Level 1<br />Singapore 528799</span>
+              </div>
+            </div>
           </div>
         </div>
 

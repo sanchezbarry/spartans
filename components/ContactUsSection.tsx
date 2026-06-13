@@ -44,7 +44,7 @@ export default function ContactUsSection() {
                 </span>
               </a>
               <a
-                href="/events"
+                href="#contact"
                 className="group flex items-center gap-3 px-5 py-3 rounded-lg border border-border hover:border-primary/40 transition-all"
               >
                 <Coffee className="w-4 h-4 text-primary shrink-0" />

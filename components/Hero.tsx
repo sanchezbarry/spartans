@@ -5,11 +5,12 @@ import { motion, useScroll, useTransform, useInView, animate } from 'motion/reac
 import { ArrowRight } from 'lucide-react';
 
 /*
-  Entrance choreography is timed to the ShieldOverlay: its panels split at
-  ~3.7s and clear by ~4.6s. Starting the reveal at BASE means the headline
-  rises out of its mask just as the page is uncovered.
+  Entrance choreography is timed to the ShieldOverlay: the portal draws around
+  the shield, then its panels split at ~4.35s and clear by ~5.25s. Starting the
+  reveal at BASE means the headline rises out of its mask just as the page is
+  uncovered.
 */
-const BASE = 3.8;
+const BASE = 4.4;
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const headline = [
