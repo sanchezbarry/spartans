@@ -92,7 +92,7 @@ export function Hero() {
     <section ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden pt-20">
 
       {/* ── Layer 1: static dark base ── */}
-      <div className="absolute inset-0 bg-linear-to-br from-background via-background to-[#1a100a]" />
+      <div className="absolute inset-0 bg-linear-to-br from-background via-background dark:to-[#1a100a]" />
 
       {/* ── Layer 2: animated gradient mesh (deepest, moves fastest) ── */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -115,7 +115,7 @@ export function Hero() {
             height: '55vw',
             top: '10%',
             right: '-8%',
-            background: 'radial-gradient(circle, rgba(200,169,106,0.08) 0%, transparent 60%)',
+            background: 'radial-gradient(circle, rgba(139,29,42,0.07) 0%, transparent 60%)',
           }}
         />
         <motion.div

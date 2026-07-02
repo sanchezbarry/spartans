@@ -44,7 +44,7 @@ export function Navigation() {
               />
       
               {/* <Shield className="w-10 h-10 text-primary" strokeWidth={1.5} /> */}
-              <div className="absolute inset-0 bg-primary/20 blur-xl"></div>
+              <div className="absolute inset-0 dark:bg-primary/20 blur-xl"></div>
             </div>
             <div>
               <div className="tracking-[0.3em] text-primary uppercase"><h6>Spartans</h6></div>

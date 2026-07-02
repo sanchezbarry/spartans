@@ -82,9 +82,9 @@ export function IspartansContent() {
       <main className="pt-20">
         {/* ── Hero ── */}
         <section className="relative py-24 lg:py-36 overflow-hidden">
-          <div className="absolute inset-0 bg-linear-to-br from-background via-background to-[#1a100a]" />
+          <div className="absolute inset-0 bg-linear-to-br from-background via-background dark:to-[#1a100a]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_60%,rgba(139,29,42,0.1),transparent)]" />
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(200,169,106,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,169,106,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(139,29,42,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(139,29,42,0.03)_1px,transparent_1px)] bg-size-[4rem_4rem]" />
 
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-14 items-center">

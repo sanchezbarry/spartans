@@ -97,9 +97,9 @@ export function PinnedStory() {
       {/* Animated mesh */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute rounded-full animate-mesh-a" style={{ width: '70vw', height: '70vw', top: '-20%', left: '-10%', background: 'radial-gradient(circle, rgba(139,29,42,0.10) 0%, transparent 65%)' }} />
-        <div className="absolute rounded-full animate-mesh-b" style={{ width: '50vw', height: '50vw', bottom: '-10%', right: '-10%', background: 'radial-gradient(circle, rgba(200,169,106,0.07) 0%, transparent 65%)' }} />
+        <div className="absolute rounded-full animate-mesh-b" style={{ width: '50vw', height: '50vw', bottom: '-10%', right: '-10%', background: 'radial-gradient(circle, rgba(139,29,42,0.07) 0%, transparent 65%)' }} />
       </div>
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(200,169,106,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,169,106,0.02)_1px,transparent_1px)] bg-size-[4rem_4rem] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(139,29,42,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(139,29,42,0.02)_1px,transparent_1px)] bg-size-[4rem_4rem] pointer-events-none" />
 
       {/* ── Carousel wrapper ── */}
       <div className="relative max-w-7xl mx-auto px-6 lg:px-16 py-28 lg:py-36">

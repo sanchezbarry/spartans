@@ -62,7 +62,7 @@ export function Framework() {
           }}
         />
       </div>
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(200,169,106,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,169,106,0.03)_1px,transparent_1px)] bg-size-[5rem_5rem] pointer-events-none" />
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(139,29,42,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(139,29,42,0.03)_1px,transparent_1px)] bg-size-[5rem_5rem] pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div

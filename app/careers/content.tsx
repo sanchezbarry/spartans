@@ -57,7 +57,7 @@ export function CareersContent() {
       <main className="pt-20">
         {/* ── Hero ── */}
         <section className="relative py-24 lg:py-32 overflow-hidden">
-          <div className="absolute inset-0 bg-linear-to-br from-background via-background to-[#1a100a]" />
+          <div className="absolute inset-0 bg-linear-to-br from-background via-background dark:to-[#1a100a]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_60%_40%,rgba(139,29,42,0.07),transparent)]" />
 
           <div className="relative max-w-7xl mx-auto px-6 lg:px-8">
