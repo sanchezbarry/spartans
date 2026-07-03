@@ -7,6 +7,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { SanityPost } from '../lib/sanity';
 
+const PAGE_SIZE = 9;
+
 type Category = SanityPost['category'];
 
 const CATEGORIES: { label: string; value: Category }[] = [
@@ -33,10 +35,19 @@ function formatDate(iso: string) {
 
 export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
   const [activeCategory, setActiveCategory] = useState<Category | null>(null);
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   const filtered = activeCategory
     ? articles.filter((a) => a.category === activeCategory)
     : articles;
+
+  const visible = filtered.slice(0, visibleCount);
+  const hasMore = filtered.length > visibleCount;
+
+  function handleCategoryChange(cat: Category | null) {
+    setActiveCategory(cat);
+    setVisibleCount(PAGE_SIZE);
+  }
 
   return (
     <>
@@ -49,7 +60,7 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
               return (
                 <button
                   key={cat.value}
-                  onClick={() => setActiveCategory(isActive ? null : cat.value)}
+                  onClick={() => handleCategoryChange(isActive ? null : cat.value)}
                   className={`px-5 py-2 text-sm rounded transition-all duration-200 ${
                     isActive
                       ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
@@ -63,7 +74,7 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
 
             {activeCategory && (
               <button
-                onClick={() => setActiveCategory(null)}
+                onClick={() => handleCategoryChange(null)}
                 className="flex items-center gap-1.5 px-4 py-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
@@ -72,7 +83,7 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
             )}
 
             <span className="ml-auto text-xs text-muted-foreground tabular-nums">
-              {filtered.length} article{filtered.length !== 1 ? 's' : ''}
+              {Math.min(visibleCount, filtered.length)} of {filtered.length} article{filtered.length !== 1 ? 's' : ''}
             </span>
           </div>
         </div>
@@ -86,14 +97,14 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
             layout
             className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
           >
-            {filtered.map((article, i) => (
+            {visible.map((article, i) => (
               <motion.article
                 key={article._id}
                 layout
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.35, delay: i * 0.05, ease: 'easeOut' }}
+                transition={{ duration: 0.35, delay: (i % PAGE_SIZE) * 0.05, ease: 'easeOut' }}
                 className="group flex flex-col bg-card border border-border rounded overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
               >
                 {/* Thumbnail (falls back to cover image) */}
@@ -155,6 +166,19 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
           </motion.div>
         </AnimatePresence>
 
+        {/* Load more */}
+        {hasMore && (
+          <div className="flex justify-center mt-12">
+            <button
+              onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+              className="inline-flex items-center gap-2.5 px-8 py-3.5 border border-border text-sm text-muted-foreground rounded hover:border-primary/40 hover:text-primary transition-all duration-200"
+            >
+              Load more articles
+              <ArrowRight className="w-4 h-4 rotate-90" />
+            </button>
+          </div>
+        )}
+
         {filtered.length === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -168,7 +192,7 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
             </p>
             {articles.length > 0 && (
               <button
-                onClick={() => setActiveCategory(null)}
+                onClick={() => handleCategoryChange(null)}
                 className="text-sm text-primary hover:underline"
               >
                 View all articles

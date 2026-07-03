@@ -6,6 +6,7 @@ import { ArrowLeft } from 'lucide-react';
 import { PortableText } from '@portabletext/react';
 import { Navigation } from '../../../components/Navigation';
 import { Footer } from '../../../components/Footer';
+import { ShareButtons } from '../../../components/ShareButtons';
 import {
   sanityClient,
   POST_BY_SLUG_QUERY,
@@ -192,6 +193,8 @@ export default async function ArticlePage({
             <PortableText value={post.body} components={portableTextComponents} />
           </div>
         )}
+
+        <ShareButtons title={post.title} />
       </article>
 
       <Footer />
