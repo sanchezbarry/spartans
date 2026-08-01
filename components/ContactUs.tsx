@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Script from 'next/script';
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
@@ -11,6 +12,17 @@ import {
   FieldSeparator,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
+
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
+
+const RECAPTCHA_SITE_KEY = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!;
 
 type Status = 'idle' | 'loading' | 'success' | 'error';
 
@@ -28,10 +40,18 @@ export function ContactUs({
     e.preventDefault();
     setStatus('loading');
 
+    const recaptchaToken = await new Promise<string>((resolve) => {
+      window.grecaptcha.ready(() => {
+        window.grecaptcha
+          .execute(RECAPTCHA_SITE_KEY, { action: 'contact_form' })
+          .then(resolve);
+      });
+    });
+
     const res = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, phone, message }),
+      body: JSON.stringify({ name, email, phone, message, recaptchaToken }),
     });
 
     if (res.ok) {
@@ -51,6 +71,10 @@ export function ContactUs({
       onSubmit={handleSubmit}
       {...props}
     >
+      <Script
+        src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+        strategy="afterInteractive"
+      />
       <FieldGroup>
         <div className="flex flex-col items-center gap-1 text-center">
           <h1 className="text-2xl font-bold">Contact Us</h1>
@@ -121,6 +145,17 @@ export function ContactUs({
           <Button type="submit" disabled={status === 'loading'} className="rounded-lg">
             {status === 'loading' ? 'Sending…' : 'Send Message'}
           </Button>
+          <FieldDescription className="text-center">
+            This site is protected by reCAPTCHA and the Google{' '}
+            <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="underline">
+              Privacy Policy
+            </a>{' '}
+            and{' '}
+            <a href="https://policies.google.com/terms" target="_blank" rel="noopener noreferrer" className="underline">
+              Terms of Service
+            </a>{' '}
+            apply.
+          </FieldDescription>
         </Field>
         <FieldSeparator>Or connect with us on</FieldSeparator>
         <Field>
