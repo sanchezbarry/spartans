@@ -1,7 +1,10 @@
-import { Resend } from 'resend';
+import emailjs from '@emailjs/nodejs';
 import { NextRequest } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+emailjs.init({
+  publicKey: process.env.EMAILJS_PUBLIC_KEY,
+  privateKey: process.env.EMAILJS_PRIVATE_KEY,
+});
 
 export async function POST(request: NextRequest) {
   const { name, email, phone, message } = await request.json();
@@ -10,22 +13,19 @@ export async function POST(request: NextRequest) {
     return Response.json({ error: 'All fields are required.' }, { status: 400 });
   }
 
-  const phoneRow = phone ? `<p><strong>Phone:</strong> ${phone}</p>` : '';
-
-  const { error } = await resend.emails.send({
-    from: 'onboarding@resend.dev',
-    to: 'dovansonquah@gmail.com',
-    subject: `New contact form submission from ${name}`,
-    html: `
-      <p><strong>Name:</strong> ${name}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      ${phoneRow}
-      <p><strong>Message:</strong></p>
-      <p>${message}</p>
-    `,
-  });
-
-  if (error) {
+  try {
+    await emailjs.send(
+      process.env.EMAILJS_SERVICE_ID!,
+      process.env.EMAILJS_TEMPLATE_ID!,
+      {
+        name,
+        email,
+        phone: phone || 'Not provided',
+        message,
+      }
+    );
+  } catch (error) {
+    console.error(error);
     return Response.json({ error: 'Failed to send email.' }, { status: 500 });
   }
 
