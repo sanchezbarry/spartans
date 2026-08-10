@@ -290,7 +290,7 @@ export function Hero() {
                   </div>
                   <div>
                     <p className="cinzel text-sm text-primary tracking-wide mb-0.5">
-                      CORT & MDRT Awarded Agency
+                      COT & MDRT Awarded Agency
                     </p>
                     <p className="text-xs text-muted-foreground leading-relaxed">
                       Recognized for excellence in wealth management and client service

@@ -3,79 +3,77 @@
 import { motion } from 'motion/react';
 import { Star, Quote } from 'lucide-react';
 
+/**
+ * Verbatim client recommendations. Do not paraphrase — reproduce the reviewer's
+ * own wording. `role` and `advisor` are omitted where the reviewer didn't state
+ * one. Rows below take these four at a time, so add in multiples of four.
+ */
 const testimonials = [
   {
-    name: 'Michael Patterson',
-    role: 'CEO, Technology Venture',
-    location: 'Singapore',
-    rating: 5,
-    text: 'SPARTANS transformed my approach to wealth. Their strategic planning helped me navigate a successful exit and structure my windfall for generational impact.',
+    name: 'Panya Tern',
+    role: 'Early Childhood Educator',
+    advisor: 'Dovanson',
+    text: 'Dovanson is an advisor who is hands-on and present. He makes time to touch base with his clients and sends little gifts. I would recommend Dovanson to anyone who are setting up their families.',
   },
   {
-    name: 'Dr. Lisa Chen',
-    role: 'Medical Professional',
-    location: 'Singapore',
-    rating: 5,
-    text: 'After years neglecting my finances while building my practice, SPARTANS gave me clarity and confidence. They handle the complexity so I can focus on my patients.',
+    name: 'Javier Ong',
+    role: 'Teacher',
+    advisor: 'Ryan Tan',
+    text: 'Ryan Tan Li Wei is the advisor that helped me gain more knowledge on my future plannings and what he does as a financial advisor. He’s professional, friendly and very understanding towards my life situations.',
   },
   {
-    name: 'Robert & Amanda Foster',
-    role: 'Retired Professionals',
-    location: 'Singapore',
-    rating: 5,
-    text: "We've worked with several advisors. SPARTANS is categorically different — they treat our money like their own. Our retirement income strategy has given us freedom we didn't think possible.",
+    name: 'Chui Yee Siau',
+    advisor: 'Sijun',
+    text: 'Lai Sijun helped me make sense of my financial goals and gave clear, personalized advice that truly fit my situation. With his guidance, I finally feel confident and in control of my financial future.',
   },
   {
-    name: 'James Rodriguez',
-    role: 'Business Owner',
-    location: 'Singapore',
-    rating: 5,
-    text: 'The team at SPARTANS understands entrepreneurs. They helped me separate personal and business wealth, optimise my tax situation, and plan for an eventual exit.',
+    name: 'Kim Junghan',
+    advisor: 'Glenn',
+    text: 'Glenn is a great advisor who’s very patient with someone with no prior knowledge about finances like me, and even goes further beyond to engage me about my personal life and troubles.',
   },
   {
-    name: 'Sarah Thompson',
-    role: 'Marketing Director',
-    location: 'Singapore',
-    rating: 5,
-    text: "What impressed me most was the holistic approach. They didn't just manage my portfolio — they coordinated with my accountant to optimise every dimension of my financial life.",
+    name: 'Jamie Tan',
+    role: 'Student',
+    advisor: 'Stacey',
+    text: 'Stacey is very helpful, whenever I have doubts about my plan, she helped me at her earliest convenience, she’s very patient in assisting me with my plans and will only recommend what works best for me. She’s knowledgeable and always prepared during our appointment.',
   },
   {
-    name: 'David & Michelle Park',
-    role: 'Young Professionals',
-    location: 'Singapore',
-    rating: 5,
-    text: "As a young family, we thought wealth management was only for the ultra-rich. SPARTANS showed us how strategic planning early creates exponential benefits.",
+    name: 'Sim Jia Feng',
+    advisor: 'Sijun',
+    text: 'Sijun is a trustworthy advisor that sells only what you need. He advised my better than my previous agent. And I was successful and happy to be in his hands for financial planning.',
   },
   {
-    name: 'Raymond Tan',
-    role: 'Software Engineer',
-    location: 'Singapore',
-    rating: 5,
-    text: "The coffee sessions are genuinely helpful — no hard sell, just real talk about money. I walked out with an actual plan, not a brochure.",
+    name: 'Ian Teo',
+    role: 'SIA Executive',
+    text: 'Really appreciate how there was zero hard selling. Everything was explained patiently, and the recommendations made a lot of sense for my current life stage. Felt very comfortable throughout — like talking to a friend who genuinely wants to help.',
   },
   {
-    name: 'Priya Nair',
-    role: 'HR Manager',
-    location: 'Singapore',
-    rating: 5,
-    text: "My advisor at SPARTANS has been with me through a job change, a new home, and a baby. That kind of continuity is rare and incredibly reassuring.",
+    name: 'Amanda Pe',
+    role: 'Media Sales',
+    advisor: 'Alicia',
+    text: 'A patient and non-judgmental advisor. Before I met Alicia, I wasn’t sure how to manage my finances or protect my wealth and was worried to voice out my concerns. Alicia patiently explained the importance of policies that will protect me in my time of need.',
   },
 ];
 
 const awards = [
-  { year: '2026', title: 'Top Wealth Management Firm', organization: "Barron's" },
-  { year: '2025', title: 'Best Financial Planning Team', organization: 'Forbes' },
-  { year: '2025', title: 'Excellence in Client Service', organization: 'FPA' },
-  { year: '2024', title: 'Top RIA Firm', organization: 'Investment News' },
+  { label: 'MDRT', title: 'Million Dollar Round Table', organization: 'Awarded agency' },
+  { label: 'COT', title: 'Court of the Table', organization: 'Awarded agency' },
 ];
 
-function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
+type Testimonial = {
+  name: string;
+  role?: string;
+  advisor?: string;
+  text: string;
+};
+
+function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="w-80 shrink-0 p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border hover:border-primary/35 transition-all duration-300 hover:shadow-xl hover:shadow-primary/8 hover:-translate-y-1 mx-3">
+    <div className="w-80 shrink-0 flex flex-col p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border hover:border-primary/35 transition-all duration-300 hover:shadow-xl hover:shadow-primary/8 hover:-translate-y-1 mx-3">
       <div className="flex items-start justify-between mb-4">
         <Quote className="w-7 h-7 text-accent/40" />
         <div className="flex gap-0.5">
-          {Array.from({ length: t.rating }).map((_, j) => (
+          {Array.from({ length: 5 }).map((_, j) => (
             <Star key={j} className="w-3 h-3 fill-primary text-primary" />
           ))}
         </div>
@@ -83,10 +81,12 @@ function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
       <p className="text-sm text-muted-foreground leading-relaxed mb-5 italic">
         &quot;{t.text}&quot;
       </p>
-      <div className="pt-3 border-t border-border">
+      <div className="mt-auto pt-3 border-t border-border">
         <p className="text-sm font-medium text-foreground mb-0.5">{t.name}</p>
-        <p className="text-xs text-primary mb-0.5">{t.role}</p>
-        <p className="text-xs text-muted-foreground">{t.location}</p>
+        {t.role && <p className="text-xs text-primary mb-0.5">{t.role}</p>}
+        <p className="text-xs text-muted-foreground">
+          {t.advisor ? `Advised by ${t.advisor}` : 'Verified client review'}
+        </p>
       </div>
     </div>
   );
@@ -117,12 +117,12 @@ export function Testimonials() {
             </h2>
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <div className="cinzel text-2xl text-primary">4.9/5</div>
+                <div className="cinzel text-2xl text-primary">5/5</div>
                 <div className="text-xs text-muted-foreground mt-0.5">Average client rating</div>
               </div>
               <div className="w-px h-10 bg-border" />
               <div className="text-right">
-                <div className="cinzel text-2xl text-primary">5,000+</div>
+                <div className="cinzel text-2xl text-primary">1,000+</div>
                 <div className="text-xs text-muted-foreground mt-0.5">Families served</div>
               </div>
             </div>
@@ -163,17 +163,17 @@ export function Testimonials() {
             <div className="w-4 h-px bg-primary" />
             <span className="cinzel text-xs text-primary tracking-[0.25em] uppercase">Industry Recognition</span>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2">
             {awards.map((award, i) => (
               <motion.div
-                key={`${award.year}-${award.title}`}
+                key={award.label}
                 initial={{ opacity: 0, scale: 0.96 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.08, duration: 0.4 }}
-                className={`p-8 text-center ${i < awards.length - 1 ? 'border-r border-border' : ''} ${i < 2 ? 'border-b border-border lg:border-b-0' : ''}`}
+                className={`p-8 text-center ${i < awards.length - 1 ? 'border-b sm:border-b-0 sm:border-r border-border' : ''}`}
               >
-                <div className="cinzel text-3xl text-primary mb-2">{award.year}</div>
+                <div className="cinzel text-3xl text-primary mb-2">{award.label}</div>
                 <p className="text-sm font-medium text-foreground mb-1">{award.title}</p>
                 <p className="text-xs text-muted-foreground">{award.organization}</p>
               </motion.div>
