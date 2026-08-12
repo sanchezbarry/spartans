@@ -1,84 +1,67 @@
 'use client';
 
+import { useSyncExternalStore } from 'react';
 import { motion } from 'motion/react';
-import { Star, Quote } from 'lucide-react';
-
-/**
- * Verbatim client recommendations. Do not paraphrase — reproduce the reviewer's
- * own wording. `role` and `advisor` are omitted where the reviewer didn't state
- * one. Rows below take these four at a time, so add in multiples of four.
- */
-const testimonials = [
-  {
-    name: 'Panya Tern',
-    role: 'Early Childhood Educator',
-    advisor: 'Dovanson',
-    text: 'Dovanson is an advisor who is hands-on and present. He makes time to touch base with his clients and sends little gifts. I would recommend Dovanson to anyone who are setting up their families.',
-  },
-  {
-    name: 'Javier Ong',
-    role: 'Teacher',
-    advisor: 'Ryan Tan',
-    text: 'Ryan Tan Li Wei is the advisor that helped me gain more knowledge on my future plannings and what he does as a financial advisor. He’s professional, friendly and very understanding towards my life situations.',
-  },
-  {
-    name: 'Chui Yee Siau',
-    advisor: 'Sijun',
-    text: 'Lai Sijun helped me make sense of my financial goals and gave clear, personalized advice that truly fit my situation. With his guidance, I finally feel confident and in control of my financial future.',
-  },
-  {
-    name: 'Kim Junghan',
-    advisor: 'Glenn',
-    text: 'Glenn is a great advisor who’s very patient with someone with no prior knowledge about finances like me, and even goes further beyond to engage me about my personal life and troubles.',
-  },
-  {
-    name: 'Jamie Tan',
-    role: 'Student',
-    advisor: 'Stacey',
-    text: 'Stacey is very helpful, whenever I have doubts about my plan, she helped me at her earliest convenience, she’s very patient in assisting me with my plans and will only recommend what works best for me. She’s knowledgeable and always prepared during our appointment.',
-  },
-  {
-    name: 'Sim Jia Feng',
-    advisor: 'Sijun',
-    text: 'Sijun is a trustworthy advisor that sells only what you need. He advised my better than my previous agent. And I was successful and happy to be in his hands for financial planning.',
-  },
-  {
-    name: 'Ian Teo',
-    role: 'SIA Executive',
-    text: 'Really appreciate how there was zero hard selling. Everything was explained patiently, and the recommendations made a lot of sense for my current life stage. Felt very comfortable throughout — like talking to a friend who genuinely wants to help.',
-  },
-  {
-    name: 'Amanda Pe',
-    role: 'Media Sales',
-    advisor: 'Alicia',
-    text: 'A patient and non-judgmental advisor. Before I met Alicia, I wasn’t sure how to manage my finances or protect my wealth and was worried to voice out my concerns. Alicia patiently explained the importance of policies that will protect me in my time of need.',
-  },
-];
+import { testimonials, type Testimonial } from '../lib/testimonials';
 
 const awards = [
   { label: 'MDRT', title: 'Million Dollar Round Table', organization: 'Awarded agency' },
   { label: 'COT', title: 'Court of the Table', organization: 'Awarded agency' },
 ];
 
-type Testimonial = {
-  name: string;
-  role?: string;
-  advisor?: string;
-  text: string;
-};
+/**
+ * The star and quote marks are defined once and referenced with <use> instead of
+ * rendering a lucide component per card. Inlining six SVGs into every card cost
+ * ~550 bytes and six DOM elements each, which dominated the page at this many
+ * cards. Paths are lucide's `star` and `quote`, copied verbatim.
+ */
+function IconDefs() {
+  return (
+    <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
+      <defs>
+        <symbol
+          id="t-star"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z" />
+        </symbol>
+        <symbol
+          id="t-quote"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+          <path d="M5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z" />
+        </symbol>
+      </defs>
+    </svg>
+  );
+}
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="w-80 shrink-0 flex flex-col p-6 rounded-2xl bg-card/80 backdrop-blur-sm border border-border hover:border-primary/35 transition-all duration-300 hover:shadow-xl hover:shadow-primary/8 hover:-translate-y-1 mx-3">
+    <div className="w-80 shrink-0 flex flex-col p-6 rounded-2xl bg-card/80 border border-border hover:border-primary/35 transition-all duration-300 hover:shadow-xl hover:shadow-primary/8 hover:-translate-y-1 mx-3">
       <div className="flex items-start justify-between mb-4">
-        <Quote className="w-7 h-7 text-accent/40" />
+        <svg className="w-7 h-7 text-accent/40" aria-hidden="true">
+          <use href="#t-quote" />
+        </svg>
         <div className="flex gap-0.5">
           {Array.from({ length: 5 }).map((_, j) => (
-            <Star key={j} className="w-3 h-3 fill-primary text-primary" />
+            <svg key={j} className="w-3 h-3 fill-primary text-primary" aria-hidden="true">
+              <use href="#t-star" />
+            </svg>
           ))}
         </div>
       </div>
-      <p className="text-sm text-muted-foreground leading-relaxed mb-5 italic">
+      <p className="text-sm text-muted-foreground leading-relaxed mb-5 italic line-clamp-6">
         &quot;{t.text}&quot;
       </p>
       <div className="mt-auto pt-3 border-t border-border">
@@ -92,12 +75,51 @@ function TestimonialCard({ t }: { t: Testimonial }) {
   );
 }
 
-const row1 = testimonials.slice(0, 4);
-const row2 = testimonials.slice(4, 8);
+const ROW_COUNT = 3;
+const CARDS_PER_ROW = 24;
+const VISIBLE = ROW_COUNT * CARDS_PER_ROW;
+
+/**
+ * Every card is duplicated to make the marquee seamless, so mounting all of
+ * `testimonials` meant ~300 cards of DOM for the handful anyone reads. We show
+ * a window of {@link VISIBLE} instead, walked with a stride that is coprime to
+ * the list length: that picks distinct entries spanning the full date range
+ * rather than a contiguous run of one advisor's reviews.
+ *
+ * `offset` rotates the window so repeat visitors don't always see the same
+ * faces. It stays 0 through SSR and hydration and only moves after mount —
+ * picking randomly during render would desync server and client markup.
+ */
+const STRIDE = 7;
+
+/** Fixed for the lifetime of the page, so the window never shifts mid-view. */
+const clientOffset = Math.floor(Math.random() * testimonials.length);
+const subscribeNever = () => () => {};
+const getClientOffset = () => clientOffset;
+const getServerOffset = () => 0;
+
+function buildRows(offset: number): Testimonial[][] {
+  const rows: Testimonial[][] = Array.from({ length: ROW_COUNT }, () => []);
+  for (let i = 0; i < Math.min(VISIBLE, testimonials.length); i++) {
+    rows[i % ROW_COUNT].push(testimonials[(offset + i * STRIDE) % testimonials.length]);
+  }
+  return rows;
+}
+
+/**
+ * Each row scrolls one full copy of itself, so the duration has to grow with
+ * the card count or the marquee speeds up as reviews are added. 12.5s per card
+ * matches the original pace (a 320px card plus its 24px gutter, ~27px/s).
+ */
+const SECONDS_PER_CARD = 12.5;
 
 export function Testimonials() {
+  const offset = useSyncExternalStore(subscribeNever, getClientOffset, getServerOffset);
+  const rows = buildRows(offset);
+
   return (
     <section className="relative py-28 lg:py-36 bg-linear-to-b from-card via-background to-card overflow-hidden">
+      <IconDefs />
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -132,23 +154,19 @@ export function Testimonials() {
 
       {/* ── Marquee rows (full-bleed, edges fade out) ── */}
       <div className="space-y-4 mb-16">
-        {/* Row 1: scrolls left → */}
-        <div className="overflow-hidden marquee-mask">
-          <div className="flex animate-marquee-left">
-            {[...row1, ...row1].map((t, i) => (
-              <TestimonialCard key={`r1-${i}`} t={t} />
-            ))}
+        {rows.map((row, r) => (
+          /* Odd rows scroll right ←, even rows scroll left → */
+          <div key={r} className="overflow-hidden marquee-mask">
+            <div
+              className={r % 2 === 0 ? 'flex animate-marquee-left' : 'flex animate-marquee-right'}
+              style={{ animationDuration: `${row.length * SECONDS_PER_CARD}s` }}
+            >
+              {[...row, ...row].map((t, i) => (
+                <TestimonialCard key={`r${r}-${i}`} t={t} />
+              ))}
+            </div>
           </div>
-        </div>
-
-        {/* Row 2: scrolls right ← */}
-        <div className="overflow-hidden marquee-mask">
-          <div className="flex animate-marquee-right">
-            {[...row2, ...row2].map((t, i) => (
-              <TestimonialCard key={`r2-${i}`} t={t} />
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
 
       {/* Awards */}
