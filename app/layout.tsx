@@ -4,6 +4,8 @@ import "./globals.css";
 import { ThemeProvider } from "./providers/ThemeContext";
 import { BackToTop } from "@/components/BackToTop";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
 
@@ -68,6 +70,8 @@ export default function RootLayout({
           {children}
           <BackToTop />
         </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
