@@ -14,7 +14,6 @@ export interface SanityPost {
   category: 'finance' | 'lifestyle' | 'current-affairs' | 'insurance'
   excerpt: string
   publishedAt: string
-  featured?: boolean
   coverImage?: {
     url: string
     alt: string
@@ -26,6 +25,8 @@ export interface SanityPost {
 }
 
 export interface SanityPostFull extends SanityPost {
+  /** True only for the most recently published post (computed in GROQ, not stored). */
+  featured: boolean
   body: PortableTextBlock[]
   seoTitle?: string
   seoDescription?: string
@@ -34,15 +35,18 @@ export interface SanityPostFull extends SanityPost {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PortableTextBlock = any
 
+// Newest first. `_createdAt` breaks ties so every query agrees on which post is "latest".
+const POST_ORDER = 'order(publishedAt desc, _createdAt desc)'
+
+// The first result is the latest post, which the articles page shows as the featured hero.
 export const POSTS_QUERY = `
-  *[_type == "post"] | order(publishedAt desc) {
+  *[_type == "post"] | ${POST_ORDER} {
     _id,
     title,
     "slug": slug.current,
     category,
     excerpt,
     publishedAt,
-    featured,
     coverImage {
       "url": asset->url,
       alt
@@ -62,7 +66,7 @@ export const POST_BY_SLUG_QUERY = `
     category,
     excerpt,
     publishedAt,
-    featured,
+    "featured": _id == (*[_type == "post"] | ${POST_ORDER})[0]._id,
     coverImage {
       "url": asset->url,
       alt

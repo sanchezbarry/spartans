@@ -159,12 +159,7 @@ export const postType = defineType({
         Rule.max(160).warning('SEO description is usually best kept under 160 characters'),
     }),
 
-    defineField({
-      name: 'featured',
-      title: 'Featured Post',
-      type: 'boolean',
-      initialValue: false,
-    }),
+    // No "featured" field: the website automatically features the most recently published post.
   ],
 
   preview: {

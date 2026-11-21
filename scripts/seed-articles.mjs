@@ -52,7 +52,6 @@ const ARTICLES = [
     publishedAt: '2026-06-30T00:00:00.000Z',
     photoUrl:       `${BASE}/2026/06/pexels-photo-5239818.jpeg`,
     infographicUrl: `${BASE}/2026/06/web-1.png`,
-    featured: true,
   },
   {
     slug: 'taking-care-of-your-loved-ones-with-a-will',
@@ -509,7 +508,6 @@ async function main() {
           alt: article.title,
         },
       ],
-      featured: article.featured ?? false,
     };
 
     try {

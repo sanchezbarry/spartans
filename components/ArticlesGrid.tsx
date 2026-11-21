@@ -33,16 +33,143 @@ function formatDate(iso: string) {
   });
 }
 
+function ArticleImage({
+  src,
+  alt,
+  sizes,
+  eager = false,
+}: {
+  src?: string;
+  alt: string;
+  sizes: string;
+  eager?: boolean;
+}) {
+  return (
+    <>
+      {src ? (
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes={sizes}
+          loading={eager ? 'eager' : undefined}
+          fetchPriority={eager ? 'high' : undefined}
+          className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
+        />
+      ) : (
+        <div className="w-full h-full bg-linear-to-br from-muted to-muted/50 flex items-center justify-center">
+          <span className="text-xs text-muted-foreground tracking-widest uppercase">No image</span>
+        </div>
+      )}
+      <div className="absolute inset-0 bg-linear-to-t from-card/40 via-transparent to-transparent" />
+    </>
+  );
+}
+
+function ArticleMeta({ article }: { article: SanityPost }) {
+  return (
+    <div className="flex items-center gap-3 mb-4">
+      <span className="text-[11px] tracking-[0.2em] uppercase text-accent font-medium">
+        {CATEGORY_LABEL[article.category]}
+      </span>
+      <span className="w-px h-3 bg-border" />
+      <span className="text-xs text-muted-foreground">{formatDate(article.publishedAt)}</span>
+    </div>
+  );
+}
+
+function ReadArticleLink({ slug }: { slug: string }) {
+  return (
+    <Link
+      href={`/articles/${slug}`}
+      className="inline-flex items-center gap-2 text-sm text-primary font-medium group/link"
+    >
+      Read article
+      <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" />
+    </Link>
+  );
+}
+
+const imageAlt = (article: SanityPost) =>
+  article.thumbnail?.alt ?? article.coverImage?.alt ?? article.title;
+
+/** Full-row card for the latest article — the only one that carries the Featured pill. */
+function HeroArticleContent({ article }: { article: SanityPost }) {
+  return (
+    <>
+      <div className="relative aspect-16/10 lg:aspect-auto lg:w-3/5 lg:min-h-105 shrink-0 overflow-hidden bg-muted">
+        {/* Prefer the full-size cover image here, since the hero renders much larger than a grid card. */}
+        <ArticleImage
+          src={article.coverImage?.url ?? article.thumbnail?.url}
+          alt={imageAlt(article)}
+          sizes="(max-width: 1024px) 100vw, (max-width: 1280px) 60vw, 760px"
+          eager
+        />
+        <div className="absolute top-4 left-4">
+          <span className="px-3 py-1 text-[10px] tracking-[0.2em] uppercase font-medium bg-primary text-primary-foreground rounded-sm">
+            Featured
+          </span>
+        </div>
+      </div>
+
+      <div className="flex flex-col justify-center flex-1 p-6 md:p-10">
+        <ArticleMeta article={article} />
+
+        <h2 className="cinzel text-2xl md:text-3xl leading-tight text-foreground mb-4 group-hover:text-primary transition-colors duration-200">
+          {article.title}
+        </h2>
+
+        <p className="text-base text-muted-foreground leading-relaxed mb-8">{article.excerpt}</p>
+
+        <ReadArticleLink slug={article.slug} />
+      </div>
+    </>
+  );
+}
+
+function ArticleCardContent({ article }: { article: SanityPost }) {
+  return (
+    <>
+      {/* Thumbnail (falls back to cover image) */}
+      <div className="relative aspect-16/10 overflow-hidden bg-muted">
+        <ArticleImage
+          src={article.thumbnail?.url ?? article.coverImage?.url}
+          alt={imageAlt(article)}
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+        />
+      </div>
+
+      <div className="flex flex-col flex-1 p-6">
+        <ArticleMeta article={article} />
+
+        <h2 className="cinzel text-base leading-snug text-foreground mb-3 group-hover:text-primary transition-colors duration-200">
+          {article.title}
+        </h2>
+
+        <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">{article.excerpt}</p>
+
+        <ReadArticleLink slug={article.slug} />
+      </div>
+    </>
+  );
+}
+
 export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
   const [activeCategory, setActiveCategory] = useState<Category | null>(null);
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+
+  // Articles arrive newest-first, so the latest post is always the featured hero.
+  const featuredId = articles[0]?._id;
 
   const filtered = activeCategory
     ? articles.filter((a) => a.category === activeCategory)
     : articles;
 
-  const visible = filtered.slice(0, visibleCount);
-  const hasMore = filtered.length > visibleCount;
+  // The hero fills a whole row, so it doesn't count toward the page size.
+  // It only appears when the active filter includes the latest post.
+  const heroOffset = filtered.length > 0 && filtered[0]._id === featuredId ? 1 : 0;
+  const visible = filtered.slice(0, visibleCount + heroOffset);
+  const hasMore = filtered.length > visible.length;
 
   function handleCategoryChange(cat: Category | null) {
     setActiveCategory(cat);
@@ -83,7 +210,7 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
             )}
 
             <span className="ml-auto text-xs text-muted-foreground tabular-nums">
-              {Math.min(visibleCount, filtered.length)} of {filtered.length} article{filtered.length !== 1 ? 's' : ''}
+              {visible.length} of {filtered.length} article{filtered.length !== 1 ? 's' : ''}
             </span>
           </div>
         </div>
@@ -97,72 +224,28 @@ export function ArticlesGrid({ articles }: { articles: SanityPost[] }) {
             layout
             className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8"
           >
-            {visible.map((article, i) => (
-              <motion.article
-                key={article._id}
-                layout
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 8 }}
-                transition={{ duration: 0.35, delay: (i % PAGE_SIZE) * 0.05, ease: 'easeOut' }}
-                className="group flex flex-col bg-card border border-border rounded overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300"
-              >
-                {/* Thumbnail (falls back to cover image) */}
-                <div className="relative aspect-16/10 overflow-hidden bg-muted">
-                  {(article.thumbnail?.url ?? article.coverImage?.url) ? (
-                    <Image
-                      src={article.thumbnail?.url ?? article.coverImage!.url}
-                      alt={article.thumbnail?.alt ?? article.coverImage?.alt ?? article.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-                      className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
-                    />
+            {visible.map((article, i) => {
+              const isHero = article._id === featuredId;
+              return (
+                <motion.article
+                  key={article._id}
+                  layout
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  transition={{ duration: 0.35, delay: (i % PAGE_SIZE) * 0.05, ease: 'easeOut' }}
+                  className={`group flex flex-col bg-card border border-border rounded overflow-hidden hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 ${
+                    isHero ? 'md:col-span-2 xl:col-span-3 lg:flex-row' : ''
+                  }`}
+                >
+                  {isHero ? (
+                    <HeroArticleContent article={article} />
                   ) : (
-                    <div className="w-full h-full bg-linear-to-br from-muted to-muted/50 flex items-center justify-center">
-                      <span className="text-xs text-muted-foreground tracking-widest uppercase">No image</span>
-                    </div>
+                    <ArticleCardContent article={article} />
                   )}
-                  <div className="absolute inset-0 bg-linear-to-t from-card/40 via-transparent to-transparent" />
-
-                  {article.featured && (
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 text-[10px] tracking-[0.2em] uppercase font-medium bg-primary text-primary-foreground rounded-sm">
-                        Featured
-                      </span>
-                    </div>
-                  )}
-                </div>
-
-                {/* Content */}
-                <div className="flex flex-col flex-1 p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="text-[11px] tracking-[0.2em] uppercase text-accent font-medium">
-                      {CATEGORY_LABEL[article.category]}
-                    </span>
-                    <span className="w-px h-3 bg-border" />
-                    <span className="text-xs text-muted-foreground">
-                      {formatDate(article.publishedAt)}
-                    </span>
-                  </div>
-
-                  <h2 className="cinzel text-base leading-snug text-foreground mb-3 group-hover:text-primary transition-colors duration-200">
-                    {article.title}
-                  </h2>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed flex-1 mb-6">
-                    {article.excerpt}
-                  </p>
-
-                  <Link
-                    href={`/articles/${article.slug}`}
-                    className="inline-flex items-center gap-2 text-sm text-primary font-medium group/link"
-                  >
-                    Read article
-                    <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover/link:translate-x-1" />
-                  </Link>
-                </div>
-              </motion.article>
-            ))}
+                </motion.article>
+              );
+            })}
           </motion.div>
         </AnimatePresence>
 
